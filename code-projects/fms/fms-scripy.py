@@ -1,0 +1,96 @@
+import sqlite3 
+import tkinter as tk 
+from tkinter import * 
+from tkinter import messagebox
+from tkinter import filedialog 
+import pandas as pd 
+
+# Create a database connection 
+conn = sqlite3.connect('finance.db') 
+c = conn.cursor() 
+
+# Create table if not exists c.execute("""CREATE TABLE IF NOT EXISTS finance ( id INTEGER PRIMARY KEY, user_name TEXT, date TEXT, amount REAL, type TEXT, category TEXT, enterprise TEXT)""") 
+
+# Create GUI window 
+window = tk.Tk() 
+window.title("Farm Manager Finances") 
+
+# Create labels and entry boxes for user input 
+l1 = Label(window, text="User Name") 
+l1.grid(row=0, column=0) 
+e1_val = StringVar() 
+e1 = Entry(window, textvariable=e1_val) 
+e1.grid(row=0, column=1) 
+
+# Create labels and entry boxes for date input 
+l2 = Label(window, text="Date") 
+l2.grid(row=1, column=0) 
+e2_val = StringVar() 
+e2 = Entry(window, textvariable=e2_val) 
+e2.grid(row=1, column=1) 
+
+# Create labels and entry boxes for amount input 
+l3 = Label(window, text="Amount") 
+l3.grid(row=2, column=0) 
+e3_val = StringVar() 
+e3 = Entry(window, textvariable=e3_val) 
+e3.grid(row=2, column=1) 
+
+# Create labels and entry boxes for type input 
+l4 = Label(window, text="Type") 
+l4.grid(row=3, column=0) 
+e4_val = StringVar() 
+e4 = Entry(window, textvariable=e4_val) 
+e4.grid(row=3, column=1) 
+
+# Create labels and entry boxes for category input 
+l5 = Label(window, text="Category") 
+l5.grid(row=4, column=0) 
+e5_val = StringVar() 
+e5 = Entry(window, textvariable=e5_val) 
+e5.grid(row=4, column=1) 
+
+# Create labels and entry boxes for enterprise input 
+l6 = Label(window, text="Enterprise") 
+l6.grid(row=5, column=0) 
+e6_val = StringVar() 
+e6 = Entry(window, textvariable=e6_val) 
+e6.grid(row=5, column=1) 
+
+# Create a function to add data to the database 
+def add(): 
+# Get the user inputs from the GUI window 
+user_name = e1_val.get() 
+date = e2_val.get() 
+amount = e3_val.get() 
+type = e4_val.get() 
+category = e5_val.get() 
+enterprise = e6_val.get() 
+
+# Insert the data into the database table 
+c.execute("INSERT INTO finance (user_name, date, amount, type, category, enterprise) VALUES (?, ?, ? ,?, ? ,?)", (user_name ,date ,amount ,type ,category ,enterprise)) 
+conn.commit() 
+messagebox.showinfo("Success", "Data added successfully") 
+
+# Create a function to edit data in the database 
+def edit(): 
+	# Get the user inputs from the GUI window 
+	user_name = e1_val.get() 
+	date = e2_val.get() 
+	amount = e3_val.get() 
+	type = e4_val.get() 
+	category = e5_val.get() 
+	enterprise = e6_val.get() 
+
+# Update the data in the database table 
+c.execute("UPDATE finance SET user_name=?, date=?, amount=?, type=?, category=?, enterprise=? WHERE id=(SELECT MAX(id) FROM finance)", (user_name ,date ,amount ,type ,category ,enterprise)) conn.commit() messagebox.showinfo("Success", "Data edited successfully") 
+
+# Create a function to print last 15 entries from the database def print(): c.execute("SELECT * FROM finance ORDER BY id DESC LIMIT 15") records = c.fetchall() df = pd.DataFrame(records) df.columns = ["ID", "User Name", "Date", "Amount", "Type", "Category", "Enterprise"] export_file = filedialog.asksaveasfilename(defaultextension='xlsx') df.to_excel (export_file + ".xlsx", index = False ) messagebox.showinfo("Success", "Data exported successfully") 
+
+
+# Create buttons to execute functions 
+b1 = Button(window, text="Enter", width=12, command=add) 
+b1.grid(row=6, columnspan=2) 
+b2 = Button(window, text="Edit", width=12, command=edit) 
+b2.grid(row=7, columnspan=2) 
+b3 = Button(window, text="Print Last 15 Entries", width=12 command=print)

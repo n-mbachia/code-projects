@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+                                              
+# IMPORT TKINTER
+import tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+
+# IMPORT FUNCTIONS FROM FILE                   
+from fms_dbentry import insert_data
+from fms_dbedit import edit_data
+from fms_viewdb import view_all_data
+
+# CREATE FRAME INSTANCE                                               
+fmsgui = tk.Tk()
+
+# FRAME NAME                                          
+fmsgui.title("Farm Manager Sytem")
+
+# FRAME SCREEN SIZE
+fmsgui.geometry("600x800")
+
+
+# CREATE FRAME HOLDER                                                 
+
+
+fmsgui.mainloop()
