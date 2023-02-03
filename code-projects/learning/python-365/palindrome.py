@@ -1,13 +1,13 @@
-def palindrome(sentence):
+def palindrome(string):
     for i in (",.'?/<>}{{}}'"):
-        sentence = sentence.replace(i, "")
+        string = string.replace(i, "")
     palindrome = []
-    words = sentence.split(' ')
+    words = string.split(' ')
     for word in words:
         word = word.lower()
         if word == word[::-1]:
             palindrome.append(word)
-        return palindrome
-sentence = "there is no reward as this has an error"
-print(palindrome(sentence))
+    return palindrome
+string = "dad just allowed mum to go to malayalam"
+print(palindrome(string))
 
