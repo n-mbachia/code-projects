@@ -1,3 +1,5 @@
+import highlighter
+
 def palindrome(string):
     for i in (",.'?/<>}{{}}'"):
         string = string.replace(i, "")
@@ -8,6 +10,6 @@ def palindrome(string):
         if word == word[::-1]:
             palindrome.append(word)
     return palindrome
-string = "dad just allowed mum to go to malayalam"
+string = "dad just allowed mum to go to malayalam lol"
 print(palindrome(string))
 

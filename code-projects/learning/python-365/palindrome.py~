@@ -7,7 +7,7 @@ def palindrome(string):
         word = word.lower()
         if word == word[::-1]:
             palindrome.append(word)
-        return palindrome
-string = "dad just allowed mum to go to malayalam"
+    return palindrome
+string = "dad just allowed mum to go to malayalam lol"
 print(palindrome(string))
 
