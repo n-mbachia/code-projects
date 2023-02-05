@@ -1,4 +1,4 @@
-def least_common_multiplier(a, b):
+def least_common_multiple(a, b):
     if a > b:
         greater  = a
     elif b > a:
@@ -11,4 +11,4 @@ def least_common_multiplier(a, b):
     return lcm
 a = int(input("Enter any number greater than zero: "))
 b = int(input("Enter another number greater than zero: "))
-print(least_common_multiplier(a, b))
+print(least_common_multiple(a, b))
