@@ -1,0 +1,9 @@
+import pywhatkit as kit
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+Handwritten = input("Enter your text to convert in Handwriting: ")
+kit.text_to_handwriting(Handwritten, save_to='mncapital.png')
+img = mpimg.imread('mncapital.png')
+plt.imshow(img)
+plt.show()
+wq
