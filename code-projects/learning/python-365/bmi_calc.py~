@@ -1,0 +1,46 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def calculate_BMI():
+    try:
+        height = float(height_entry.get())
+        weight = float(weight_entry.get())
+        height = height / 100
+        bmi = weight / (height * height)
+        bmi = round(bmi)
+        result_label.config(text="Your Body Mass Index is: " + str(bmi))
+        if bmi <= 16:
+            messagebox.showinfo("Result", "You are severely underweight. You seek nutritional advice!")
+        elif bmi <= 18.5:
+            messagebox.showinfo("Result", "You are underweight. Need to eat some beef and fiber.")
+        elif bmi <= 25:
+            messagebox.showinfo("Result", "You are Healthy, Very impressive!")
+        elif bmi <= 30:
+            messagebox.showinfo("Result", "You are overweight. Lose a few Kilograms!")
+        else:
+            messagebox.showinfo("Result", "You are obese, It surely sucks to be you! Discipline, Commitment, and serious lifestyle change required!")
+    except ValueError:
+        messagebox.showerror("Error", "Please enter valid height and weight values")
+
+root = tk.Tk()
+root.title("BMI Calculator")
+
+height_label = tk.Label(root, text="Enter your height in centimeters:")
+height_label.pack()
+
+height_entry = tk.Entry(root)
+height_entry.pack()
+
+weight_label = tk.Label(root, text="Enter your weight in kilograms:")
+weight_label.pack()
+
+weight_entry = tk.Entry(root)
+weight_entry.pack()
+
+calculate_button = tk.Button(root, text="Calculate", command=calculate_BMI)
+calculate_button.pack()
+
+result_label = tk.Label(root, text="")
+result_label.pack()
+
+root.mainloop()
