@@ -1,0 +1,24 @@
+The help function is useful in displaying the function docstring. In python, A function will ofen include documentation describing the function, called a docstring, which must be indented along with the function body. Docstrings are conventionally triple quoted. The first line describes the job of the function in one line. The following lines can describe arguments and clarify the behavior of the function:
+
+>>> def pressure(v, t, n):
+        """Compute the pressure in pascals of an ideal gas.
+
+        Applies the ideal gas law: http://en.wikipedia.org/wiki/Ideal_gas_law
+
+        v -- volume of gas, in cubic meters
+        t -- absolute temperature in degrees kelvin
+        n -- particles of gas
+        """
+        k = 1.38e-23  # Boltzmann's constant
+        return n * k * t / v
+When you call help with the name of a function as an argument, you see its docstring (type q to quit Python help).
+
+>>> help(pressure)
+When writing Python programs, include docstrings for all but the simplest functions. Remember, code is written only once, but often read many times. The Python docs include docstring guidelines that maintain consistency across different Python projects.
+Comments. Comments in Python can be attached to the end of a line following the # symbol. For example, the comment Boltzmann's constant above describes k. These comments don't ever appear in Python's help, and they are ignored by the interpreter. They exist for humans alone.
+
+Not if you wante to run the docstring of a file on terminal. You need to be on the Python shell, 
+>>> import <filename> #This defines the file on the shell
+>>> help(filename.function_name) to output the docstring. 
+
+once done follow the quit procedure to quit Python help. 
