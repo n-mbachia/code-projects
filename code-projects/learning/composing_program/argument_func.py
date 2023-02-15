@@ -25,7 +25,7 @@ def identity(x):
     return x
 
 def sum_naturals(n):
-    """ A nutural number is a positive number that is >= 1. They are used for counting, measure quantities, represent size of sets and define the order of elements in a sequence or series. They are used in all mathematical branches.
+    """ A natural number is a positive number that is >= 1. They are used for counting, measure quantities, represent size of sets and define the order of elements in a sequence or series. They are used in all mathematical branches.
     """
     return summation(n, identity) # function identity passed as argument
 n = int(input("Enter a number: "))
