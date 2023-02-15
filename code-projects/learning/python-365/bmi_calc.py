@@ -1,3 +1,5 @@
+#1/usr/bin/python3
+
 import tkinter as tk
 
 def calculate_bmi():
@@ -18,7 +20,7 @@ def calculate_bmi():
         elif bmi <= 30:
             label_status.config(text="You are overweight. Lose a few kilograms!")
         else:
-            label_status.config(text="You are obese, It surely sucks to be you! Discipline, Commitment and serious lifestyle change required!")
+            label_status.config(text="You are obese, It surely sucks to be you! Discipline, commitment and serious lifestyle change required!")
     else:
         label_status.config(text="Please enter valid details")
 
