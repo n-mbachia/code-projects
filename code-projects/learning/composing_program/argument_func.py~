@@ -1,0 +1,45 @@
+# This file is showing how a function can be used as an argument 
+
+def summation(n, term):
+    total, k = 0, 1
+    while k <= n:
+        total, k = total + term(k), k + 1 # tuple unpacking to assign to two variables at once
+        """ current value 'k' incremented by 1 using 'k + 1'
+        'term' function called with new value of 'k'. The current value 'total' is added to value from step 2 using 'total + term(k)'. 
+        Result of step 3 is a tuple with two values: updated value of 'total' and updated value of 'k+1'. Tuple from step 4 is unpacked using tuple unpacking. First value is updated value of 'total' assigned to 'total'.
+        The second value is updated value of 'k+1' is assignmed to variable 'k'. The while loop continues until the condition 'k <= n' is no longer true, at which point final value of 'total' is retuned. 
+        """
+    return total
+
+def cube(x):
+    return x*x*x
+
+def sum_cubes(n):
+    return summation(n, cube)
+
+def identity(x):
+    return x
+
+def sum_naturals(n):
+    return summation(n, identity)
+n = int(input("Enter a number: "))
+
+def pi_term(x):
+    """ 'pi_term" function is a mathematical function that calculates specific term of the Leibiz formula for pi which is an infinate series used to approximate the value of pi, as shown in the shortest formula as shown below
+    """
+    return 8 / ((4*x-3) * (4*x-1))
+
+def pi_sum(n):
+    return summation(n, pi_term)
+# try block allows other variuable to be defined and also creates an exception
+try:
+    n = int(n)
+    result_cubes = sum_cubes(n)
+    result_naturals = sum_naturals(n)
+    result_pi = pi_sum(n)
+    print(f"The sum of the cubes from 1 to {n} is: {result_cubes}")
+    print(f"The sum of the natural numbers from 1 to {n} is: {result_naturals}")
+    print(f"The sum of pi from 1 to {n} is: {result_pi}")
+except ValueError:
+    print("Error: Input must be an integer")
+
