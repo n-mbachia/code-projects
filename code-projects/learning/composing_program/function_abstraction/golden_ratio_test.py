@@ -1,0 +1,12 @@
+from math import sqrt
+
+phi = 1/2 +sqrt(5)/2
+
+def improve_test():
+    approx_phi = imporve(golden_update,square_close_to_successor)
+    assert approx_eq(phi, approx_phi), 'phi differes from its approximation'
+
+    return improve_test()
+
+
+# For this test, no news is good news: improve_test returns None after its assert statement is executed successfully.

@@ -1,0 +1,30 @@
+def improve(update, close, guess=1):
+    """Function impelementation yeilds golden ratio = 1.61803398875.
+
+    has 3 arguments
+    update a function that updates current guess, 
+    close a function that checks current guess is close enough to desired result
+    guess is initial guess as 1
+    """
+
+    while not close(guess): # iterates if guess not close to desired result
+        guess = update(guess) # update function updates guess loop continues
+    return guess
+
+def golden_updates(guess):
+    return 1/guess + 1 # updates guess by adding 1 to guess reciprocal. Formula vital to get closer to golden ratio
+
+def square_close_to_successor(guess):
+    """ Function takes guess and checks its square is approximatelkt equal to sum of the guess and 1.
+    """
+    return approx_eq(guess * guess, guess +1) # if True guess considered close enough to desired result.
+
+def approx_eq(x, y, tolerance=1e-3):
+    return abs(x - y) < tolerance
+
+phi = improve(golden_updates, square_close_to_successor)
+""" phi variable assigned result calling improve function with golden_updates function as the update argument and square_to_close_successor functionm as the close argument. 
+Meaning im,prove function will use golden_uodates function to update guess and the square_close_to_successor function to check if the guess is close enough to golden ratio. 
+"""
+
+print(phi)
