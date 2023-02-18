@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+"""This code was adopted from Python Coding YouTube channel Day 15."""
+
+""" A violin plot is a type of data visualization that combines a box plot with kernel density plot. In this case, the 'x' parameter is set to 'data["total_bill"]', which specifies that the total bill column should be used as the x-axis variable."""
+
+# pip3 install seaborn
+import seaborn as sns
+
+#pip3 install matplotlib
+import matplotlib.pyplot as plt
+
+data = sns.load_dataset("tips") # loads 'tips' dataset from Seaborn built-in dataset
+plt.figure(figsize=(10, 4)) # creates new matplot figure with dimensions as arguments
+sns.violinplot(x=data["total_bill"]) # creates violine plot Seaborn 'violinplot' function
+plt.show() # displays resulting plot created in previuous line. 
+

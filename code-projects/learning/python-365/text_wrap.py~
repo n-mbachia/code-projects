@@ -1,0 +1,8 @@
+import textwrap
+text = """ 'textwrap' is a buiult-in Python Module. In this code snippet, we are going to format the variable text using the 'fill()" method of the 'TextWrapper' object to wrap text and returning a single string with wrapped lines rather than a list of lines. Useful applications include: text justification, preparing text for analysis. preparing text fpr display on user interface, when writing text to file and adjusting text to console window"""
+
+wrapper = textwrap.TextWrapper(width=55)
+
+wrapped_text = wrapper.fill(text)
+
+print(wrapped_text)
