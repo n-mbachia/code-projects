@@ -9,7 +9,8 @@ import pandas as pd
 conn = sqlite3.connect('finance.db') 
 c = conn.cursor() 
 
-# Create table if not exists c.execute("""CREATE TABLE IF NOT EXISTS finance ( id INTEGER PRIMARY KEY, user_name TEXT, date TEXT, amount REAL, type TEXT, category TEXT, enterprise TEXT)""") 
+# Create table if not exists 
+c.execute("""CREATE TABLE IF NOT EXISTS finance ( id INTEGER PRIMARY KEY, user_name TEXT, date TEXT, amount REAL, type TEXT, category TEXT, enterprise TEXT)""") 
 
 # Create GUI window 
 window = tk.Tk() 
@@ -60,12 +61,12 @@ e6.grid(row=5, column=1)
 # Create a function to add data to the database 
 def add(): 
 # Get the user inputs from the GUI window 
-user_name = e1_val.get() 
-date = e2_val.get() 
-amount = e3_val.get() 
-type = e4_val.get() 
-category = e5_val.get() 
-enterprise = e6_val.get() 
+	user_name = e1_val.get() 
+	date = e2_val.get() 
+	amount = e3_val.get() 
+	type = e4_val.get() 
+	category = e5_val.get() 
+	enterprise = e6_val.get() 
 
 # Insert the data into the database table 
 c.execute("INSERT INTO finance (user_name, date, amount, type, category, enterprise) VALUES (?, ?, ? ,?, ? ,?)", (user_name ,date ,amount ,type ,category ,enterprise)) 
@@ -83,9 +84,19 @@ def edit():
 	enterprise = e6_val.get() 
 
 # Update the data in the database table 
-c.execute("UPDATE finance SET user_name=?, date=?, amount=?, type=?, category=?, enterprise=? WHERE id=(SELECT MAX(id) FROM finance)", (user_name ,date ,amount ,type ,category ,enterprise)) conn.commit() messagebox.showinfo("Success", "Data edited successfully") 
+c.execute("UPDATE finance SET user_name=?, date=?, amount=?, type=?, category=?, enterprise=? WHERE id=(SELECT MAX(id) FROM finance)", (user_name ,date ,amount ,type ,category ,enterprise)) 
+conn.commit() 
+messagebox.showinfo("Success", "Data edited successfully") 
 
-# Create a function to print last 15 entries from the database def print(): c.execute("SELECT * FROM finance ORDER BY id DESC LIMIT 15") records = c.fetchall() df = pd.DataFrame(records) df.columns = ["ID", "User Name", "Date", "Amount", "Type", "Category", "Enterprise"] export_file = filedialog.asksaveasfilename(defaultextension='xlsx') df.to_excel (export_file + ".xlsx", index = False ) messagebox.showinfo("Success", "Data exported successfully") 
+# Create a function to print last 15 entries from the database 
+def print(): 
+	c.execute("SELECT * FROM finance ORDER BY id DESC LIMIT 15")
+	records = c.fetchall() 
+	df = pd.DataFrame(records) 
+	df.columns = ["ID", "User Name", "Date", "Amount", "Type", "Category", "Enterprise"] 
+	export_file = filedialog.asksaveasfilename(defaultextension='xlsx') 
+	df.to_excel (export_file + ".xlsx", index = False ) 
+	messagebox.showinfo("Success", "Data exported successfully") 
 
 
 # Create buttons to execute functions 
@@ -93,4 +104,4 @@ b1 = Button(window, text="Enter", width=12, command=add)
 b1.grid(row=6, columnspan=2) 
 b2 = Button(window, text="Edit", width=12, command=edit) 
 b2.grid(row=7, columnspan=2) 
-b3 = Button(window, text="Print Last 15 Entries", width=12 command=print)
+b3 = Button(window, text="Print Last 15 Entries", width=12, command=print)
