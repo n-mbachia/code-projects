@@ -180,7 +180,7 @@ def create_widgets():
     e6 = Entry(window, textvariable=e6_val)
     e6.grid(row=5, column=1)
 
-
+    dataEntry()
     
     def search():
         global tree, search_entry
@@ -325,13 +325,12 @@ def create_widgets():
     # Create a button to add data to the database
     b1 = Button(window, text="Enter", width=12, command=dataEntry)
     b1.grid(row=6, columnspan=2)
+
 # Call the create_widgets() function
 create_widgets()
 
 # Adjust the width of the label column
 window.grid_columnconfigure(0, minsize=100)
-
-
 
 # Start the main event loop
 window.mainloop()
