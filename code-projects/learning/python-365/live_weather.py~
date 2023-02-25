@@ -1,0 +1,52 @@
+#!/usr/bin/python3
+
+"""This code was adopted from the Python Coding YouTube channel day 16"""
+
+from bs4 import BeautifulSoup
+import requests
+
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0: Win64: x64) ApplWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+
+def weather(city):
+    city = city.replace(" ", "+")
+    url = f'https://www.google.com/search?q={city}&oq={city}&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8'
+    res = requests.get(url, headers=headers)
+
+    print("Searching for weather in " + city.replace("+", " ") + "...\n")
+    soup = BeautifulSoup(res.text, 'html.parser')
+
+    # Get the time element
+    time_elem = soup.find('div', {'id': 'wob_dts'})
+    if time_elem:
+        time = time_elem.getText().strip()
+    else:
+        print("Error: could not find time element.")
+        return
+
+    # Get the weather info element
+    info_elem = soup.find('div', {'id': 'wob_dc'})
+    if info_elem:
+        info = info_elem.getText().strip()
+    else:
+        print("Error: could not find weather info element.")
+        return
+
+    # Get the temperature element
+    temp_elem = soup.find('span', {'id': 'wob_tm'})
+    if temp_elem:
+        temp = temp_elem.getText().strip()
+    else:
+        print("Error: could not find temperature element.")
+        return
+
+    # Print the weather information
+    print("Time: " + time)
+    print("Weather: " + info)
+    print("Temperature: " + temp + "°C")
+
+try:
+    city = input("Enter the name of any city: ")
+    city = city.strip().lower()
+    weather(city)
+except:
+    print("An error occurred. Please try again.")
