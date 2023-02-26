@@ -1,0 +1,35 @@
+def average(x, y):
+    return(x + y)/2
+
+def improve(update, close, guess=1):
+    while not close(guess):
+        guess = update(guess)
+    return guess
+
+def approx_eq(x, y, tolerance=1e3):
+    return abs(x - y) < tolerance
+
+def sqrt(a):
+    def sqrt_update(x):
+        return average(x, a/x)
+    def sqrt_close(x):
+        return approx_eq(x * x, a)
+    return improve(sqrt_update, sqrt_close)
+
+result = sqrt(256)
+
+"""When the code is executed in the global environment, the following things happen:
+
+1. The average function is defined in the global frame.
+2. The improve function is defined in the global frame.
+3. The approx_eq function is defined in the global frame.
+4. The sqrt function is defined in the global frame.
+5. The result variable is assigned the value of sqrt(256).
+
+When the sqrt function is called with an argument a, it creates two new frames: the sqrt_update frame and the sqrt_close frame. These frames are nested inside the sqrt frame.
+
+In the sqrt frame, the improve function is called with the sqrt_update and sqrt_close functions as arguments. The improve function creates a new frame for each iteration of the loop. In each iteration, the update function is called with the current guess value, which is passed as an argument to the sqrt_update function. The close function is also called with the current guess value. If the close function returns True, the loop is exited and the final guess value is returned. Otherwise, the loop continues with a new guess value.
+
+When the improve function completes, the sqrt function returns the final guess value, which is assigned to the result variable in the global frame.
+
+Overall, each function call creates a new frame on top of the previous frame, forming a call stack. The call stack grows as new function calls are made and shrinks as function calls return. The innermost frame on the call stack is always the currently executing frame. When a function returns, its frame is removed from the call stack and control returns to the previous frame."""

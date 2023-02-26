@@ -39,7 +39,7 @@ height = window.winfo_screenheight()
 window.geometry("%dx%d+0+0" % (width/2, height))
 
 window.resizable(width, height)
-window.attributes('-alpha', 0.3)
+# window.attributes('-alpha', 0.3)
 window.attributes('-topmost', 1)
 # Create a function for data entry to the database
 def dataEntry():
@@ -184,8 +184,8 @@ def create_widgets():
     window.grid_rowconfigure(0, weight=1)
     # window.grid_columnconfigure(0, weight=1)
     
-    def search():
-        global tree, search_entry
+def search():
+    global tree, search_entry
         
         # Get the search keyword from the search entry widget
         keyword = search_entry.get()
@@ -274,7 +274,7 @@ def create_widgets():
         selected_item = tree.selection()
         if not selected_item:
             messagebox.showerror("Error", "Please select an item to edit.")
-            return
+            return
         item_id = selected_item[0]
 
         # Get the user inputs from the GUI window                                                          

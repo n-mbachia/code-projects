@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+import math
+ 
+# import functools
+"""This code defines two functions to demontsrate how to use curring.
+This allows the function to be called in a curried fashion, where each argument is apssed seperately rather than being passed as a tuple or list"""
+
+def curry2(f): # func takes a two-argument function'f' as input, returns new functiuon that is curried version of 'f'.
+        """Return a curried version of the given two-argument function."""
+        def g(x): # Returned function takes first argument 'x' and
+            def h(y): # Returns another fun ction that takes the second argument 'y' and 
+                return f(x, y) # Applies 'f' to 'x' and 'y'
+            return h # Function 'h' returned seperately
+        return g #Function 'g' returned seperately
+pow_curried = curry2(pow)
+
+def map_to_range(start, end, f):
+	""" Function iterates over range and applies function 'f' takes three arguments
+	'start': an integer representing the start of a range,
+	'end': an integer representing the end of a range
+	'f': a function that takes one argument"""
+	while start < end:
+            print(f(start))
+            start = start + 1
+
+print(map_to_range(0, 10, pow_curried(10))) # The 'pow_curried(2)' function is curried version of built-in 'pow' function that raises a number to the power of integer in brackets. 

@@ -14,38 +14,71 @@ from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from tkcalendar import DateEntry
 
-
-# Create a function to add data to the database
-def add():
-    # Get the user inputs from the GUI window
-    user_name = e1_val.get()
-    date = e2_val.get()
-    amount = e3_val.get()
-    expense_type = e4_val.get()
-    category = e5_val.get()
-    enterprise = e6_val.get()
-
-    # Check if all fields are filled
-    if user_name == '' or date == '' or amount == '' or expense_type == '' or category == '' or enterprise == '':
-        messagebox.showerror("Error", "Please fill all fields.")
-
+def create_table():
     # Connect to the database
     conn = sqlite3.connect('finance.db')
     c = conn.cursor()
 
-    # Insert the data into the database table
-    c.execute("INSERT INTO finance (user_name, date, amount, type, category, enterprise) VALUES (?, ?, ? ,?, ? ,?)",
-              (user_name, date, amount, expense_type, category, enterprise))
+    # Create the finance table if it does not exist
+    c.execute('''CREATE TABLE IF NOT EXISTS finance (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_name TEXT,
+                date TEXT,
+                amount REAL,
+                item TEXT,
+                category TEXT,
+                enterprise TEXT)''')
+    
+    # Commit the changes and close the connection
     conn.commit()
-    messagebox.showinfo("Success", "Data added successfully")
+    conn.close()
 
-    # Clear the input fields
-    e1.delete(0, END)
-    e2.delete(0, END)
-    e3.delete(0, END)
-    e4.delete(0, END)
-    e5.delete(0, END)
-    e6.delete(0, END)
+# Create a function to add data to the database
+def add():
+    try:
+        # Get the user inputs from the GUI window
+        user_name = e1_val.get()
+        date = e2_val.get()
+        amount = e3_val.get()
+        item = e4_val.get()
+        category = e5_val.get()
+        enterprise = e6_val.get()
+
+        # Check if all fields are filled
+        if user_name == '' or date == '' or amount == '' or item == '' or category == '' or enterprise == '':
+            messagebox.showerror("Error", "Please fill all fields.")
+            return
+
+        # Connect to the database
+        conn = sqlite3.connect('finance.db')
+
+        # Create the table if it doesn't exist
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS finance
+                     (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      user_name TEXT NOT NULL,
+                      date TEXT NOT NULL,
+                      amount REAL NOT NULL,
+                      item TEXT NOT NULL,
+                      category TEXT NOT NULL,
+                      enterprise TEXT NOT NULL)''')
+
+        # Insert the data into the database table
+        c.execute("INSERT INTO finance (user_name, date, amount, item, category, enterprise) VALUES (?, ?, ? ,?, ? ,?)",
+                  (user_name, date, amount, item, category, enterprise))
+        conn.commit()
+        messagebox.showinfo("Success", "Data added successfully")
+
+        # Clear the input fields
+        e1.delete(0, END)
+        e2.delete(0, END)
+        e3.delete(0, END)
+        e4.delete(0, END)
+        e5.delete(0, END)
+        e6.delete(0, END)
+
+    except sqlite3.Error as e:
+        messagebox.showerror("Error", f"An error occurred: {e}")
 
 # Create a GUI window
 window = tk.Tk()
@@ -132,18 +165,19 @@ e6 = Entry(window, textvariable=e6_val)
 e6.grid(row=5, column=1)
 
 tree = ttk.Treeview(window)
-tree['columns'] = ('ID', 'User Name', 'Date', 'Amount', 'Expense Type', 'Category', 'Enterprise')
+tree['columns'] = ('ID', 'User Name', 'Date', 'Amount', 'Item Description', 'Category', 'Enterprise')
+
 
 def create_widgets():
-    # Create a Treeview widget
-    global tree
+    global tree, search_entry, search_button
     
+    # Create a Treeview widget
     tree.heading("#0", text="", anchor="w")
     tree.heading("ID", text="ID", anchor="w")
     tree.heading("User Name", text="User Name", anchor="w")
     tree.heading("Date", text="Date", anchor="w")
     tree.heading("Amount", text="Amount", anchor="w")
-    tree.heading("Type", text="Expense Type", anchor="w")
+    tree.heading("Item Description", text="Expense Type", anchor="w")
     tree.heading("Category", text="Category", anchor="w")
     tree.heading("Enterprise", text="Enterprise", anchor="w")
     tree.column("#0", width=0, stretch="no")
@@ -151,10 +185,9 @@ def create_widgets():
     tree.column("User Name", width=100, anchor="w")
     tree.column("Date", width=100, anchor="w")
     tree.column("Amount", width=100, anchor="w")
-    tree.column("Type", width=100, anchor="w")
+    tree.column("Item Description", width=100, anchor="w")
     tree.column("Category", width=100, anchor="w")
     tree.column("Enterprise", width=100, anchor="w")
-    # tree.grid(row=7, column=0, columnspan=2)
     
     # Add scrollbar to the treeview
     vsb = ttk.Scrollbar(window, orient="vertical", command=tree.yview)
@@ -164,10 +197,20 @@ def create_widgets():
     # Add the tree widget to the window
     tree.pack(expand=YES, fill=BOTH)
     
+    # Create a search entry widget
+    search_entry = Entry(window)
+    search_entry.pack(side=LEFT, padx=10, pady=10)
+    
+    # Create a search button
+    search_button = Button(window, text="Search", command=search)
+    search_button.pack(side=LEFT, padx=10, pady=10)
+    
     # Get data from the SQL database
+    show_data()
 
 def show_data():
     global tree
+    
     # Connect to the database
     conn = sqlite3.connect('finance.db')
     c = conn.cursor()
@@ -188,12 +231,37 @@ def show_data():
 
     # Schedule the function to run again after 5 seconds
     window.after(5000, show_data)
-
 # Displays database on the window
 def view():
     show_data()
 
 view()
+    
+def search():
+    global tree, search_entry
+    
+    # Get the search keyword from the search entry widget
+    keyword = search_entry.get()
+
+    # Connect to the database
+    conn = sqlite3.connect('finance.db')
+    c = conn.cursor()
+
+    # Execute the SQL query with the search keyword
+    c.execute("SELECT * FROM finance WHERE 'User Name' LIKE ? OR 'Item Description' LIKE ? OR 'Category' LIKE ? OR 'Enterprise' LIKE ?",
+              ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
+
+    ## Fetch the results from database
+    records = c.fetchall()
+
+    # Clear the existing data from the treeview
+    for row in tree.get_children():
+        tree.delete(row)
+
+    # Insert the new data into the treeview
+    for row in records:
+        tree.insert('', 'end', values=row)
+
 
 # Create a function to edit data in the database 
 def edit_data():
@@ -219,7 +287,7 @@ def edit_data():
     c = conn.cursor()
 
     # Update the data in the database table 
-    c.execute("UPDATE finance SET user_name=?, date=?, amount=?, expense_type=?, category=?, enterprise=? WHERE id=?", (user_name ,date ,amount ,type ,category ,enterprise, id)) 
+    c.execute("UPDATE finance SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name ,date ,amount ,type ,category ,enterprise, id)) 
     conn.commit() 
     messagebox.showinfo("Success", "Data edited successfully") 
             
@@ -237,41 +305,50 @@ def edit_data():
 # Define the calendar widget globally
 cal = DateEntry(window, width=12, background='darkblue', foreground='white', borderwidth=2)
 
-# Create a function to print last 15 entries from the database
+# Create a function to print database as per selected dates
 def export():
-    # Connect to the database                                                                  
+    # Connect to the database
     conn = sqlite3.connect('finance.db')
     c = conn.cursor()
-
-    # Get the selected date from the date picker widget
-    # selected_date = cal.get_date()
 
     # Get the selected date range from the date picker widget
     start_date = cal_start.get_date()
     end_date = cal_end.get_date()
 
-
-    # Execute the SQL query                                                                     
+    # Execute the SQL query
     c.execute("SELECT * FROM finance WHERE Date BETWEEN ? AND ? ORDER BY id DESC",
               (start_date, end_date))
 
-    # Fetch the results from database                                                           
-    records = c.fetchall()
-
     # Create a Pandas dataframe with the records
-    df = pd.DataFrame(records, columns=["ID", "User Name", "Date", "Amount", "Expense Type", "Category", "Enterprise"])
+    data = c.fetchall()
+    df = pd.DataFrame(data, columns=["ID", "User Name", "Date", "Amount", "Item Description", "Category", "Enterprise"])
 
     if not df.empty:
-        # Export dataframe to Excel
-        export_file = filedialog.asksaveasfilename(defaultextension='.xlsx')
-        df.to_excel(export_file, index=False)
-        messagebox.showinfo("Success", "Data exported successfully")
+        try:
+            # Export dataframe to Excel
+            export_file = filedialog.asksaveasfilename(defaultextension='.xlsx')
+            if export_file:
+                # Create a new workbook
+                wb = Workbook()
+                ws = wb.active
+
+                # Write the DataFrame to the worksheet
+                for r in dataframe_to_rows(df, index=False, header=True):
+                    ws.append(r)
+
+                # Save the workbook to the Excel file
+                wb.save(export_file)
+                messagebox.showinfo("Success", "Data exported successfully")
+            else:
+                messagebox.showinfo("Info", "Export cancelled by user")
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred during export: {str(e)}")
     else:
         messagebox.showerror("Error", "No records found")
 
     # Close the cursor and the connection
     c.close()
-    conn.close() 
+    conn.close()
 
 # Create the date picker widget
 def export_data():
@@ -311,8 +388,8 @@ cal_end.grid(row=9, column=1)
 # Create a button to add data to the database
 b1 = Button(window, text="Enter", width=12, command=add)
 b1.grid(row=6, columnspan=2)
-# Create a button to edit the stored database
-b2 = Button(window, text="Edit", width=12, command=edit_data) 
+# Create a button to edit the stored database                                                          
+b2 = Button(window, text="Edit", width=12, command=edit_data)
 b2.grid(row=7, columnspan=2)
 # Create a button to Print to excel last 15 entries
 b3 = Button(window, text="Export Report To Excel", width=25, command=export)
