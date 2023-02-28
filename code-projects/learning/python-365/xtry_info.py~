@@ -10,12 +10,13 @@ try:
     # Try block retries country info based on input as argument
     country = CountryInfo(xtry)
 
-    # Info to be printed
+    # f-string is formatted to include country name and a list based on function call
     print(f"Capital of {xtry} is: {country.capital()}")
     print(f"Currencies used in {xtry} are: {country.currencies()}")
     print(f"Languages spoken in {xtry} are: {country.languages()}")
     print(f"Countries that share a border with {xtry} are: {country.borders()}")
     print(f"Other names for {xtry} are: {country.alt_spellings()}")
 
-except KeyError: # this will be implemented if input is invalid thus program doesnt crash
+# this will be implemented if input is invalid thus program doesn't crash
+except KeyError:
     print("Error: Invalid country name entered")

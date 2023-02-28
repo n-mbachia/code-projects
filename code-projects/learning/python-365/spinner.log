@@ -1,0 +1,25 @@
+ERROR:root:Error in spinner(): 'rotational_angle'
+Traceback (most recent call last):
+  File "/Users/mbachia/code-projects/learning/python-365/fidget_spinner.py", line 38, in animate
+    if state['rotational_angle']>0:
+KeyError: 'rotational_angle'
+ERROR:root:Error in spinner(): 'rotational_angle'
+Traceback (most recent call last):
+  File "/Users/mbachia/code-projects/learning/python-365/fidget_spinner.py", line 38, in animate
+    if state['rotational_angle']>0:
+KeyError: 'rotational_angle'
+ERROR:root:Error in spinner(): 'rotational_angle'
+Traceback (most recent call last):
+  File "/Users/mbachia/code-projects/learning/python-365/fidget_spinner.py", line 38, in animate
+    if state['rotational_angle']>0:
+KeyError: 'rotational_angle'
+ERROR:root:Error in spinner(): 'rotational_angle'
+Traceback (most recent call last):
+  File "/Users/mbachia/code-projects/learning/python-365/fidget_spinner.py", line 38, in animate
+    if state['rotational_angle'] > 0:
+KeyError: 'rotational_angle'
+ERROR:root:Error in spinner(): 'rotational_angle'
+Traceback (most recent call last):
+  File "/Users/mbachia/code-projects/learning/python-365/fidget_spinner.py", line 38, in animate
+    if state['rotational_angle'] > 0:
+KeyError: 'rotational_angle'
