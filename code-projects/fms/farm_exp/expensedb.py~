@@ -39,7 +39,7 @@ height = window.winfo_screenheight()
 window.geometry("%dx%d+0+0" % (width/2, height))
 
 window.resizable(width, height)
-window.attributes('-alpha', 0.3)
+# window.attributes('-alpha', 0.3)
 window.attributes('-topmost', 1)
 # Create a function for data entry to the database
 def dataEntry():
@@ -179,160 +179,157 @@ def create_widgets():
     vsb.grid(row=8, column=1, sticky='ns')
     tree.configure(yscrollcommand=vsb.set)
 
-    # Add the tree widget to the window
-    tree.grid(row=8, column=0, sticky='nsew')
-    window.grid_rowconfigure(0, weight=1)
-    # window.grid_columnconfigure(0, weight=1)
-    
-    def search():
-        global tree, search_entry
-        
-        # Get the search keyword from the search entry widget
-        keyword = search_entry.get()
-        # Convert the keyword to lowercase
-        keyword = keyword.lower()
-
-        # Connect to the database
-        conn = sqlite3.connect('expense.db')
-        c = conn.cursor()
-
-        # Execute the SQL query with the search keyword
-        c.execute("SELECT * FROM expense WHERE LOWER('User Name') LIKE ? OR LOWER('Item Description') LIKE ? OR LOWER('Category') LIKE ? OR LOWER('Enterprise') LIKE ?",
-            ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
-
-        # Fetch the results from database
-        records = c.fetchall()
-
-        # Clear the existing data from the treeview
-        for row in tree.get_children():
-            tree.delete(row)
-
-        # If there are no records, display a message in the treeview
-        if not records:
-            tree.insert('', 'end', values=("No matching records found", "", "", "", "", "", ""))
-
-        # Insert the new data into the treeview
-        for row in records:
-            tree.insert('', 'end', values=row)
-                
-    # Create a search entry widget
-    search_entry = Entry(window)
-    search_entry.grid(row=6, column=0, sticky='w')
-        
-    # Create a search button
-    search_button = Button(window, text="Search", width=12, command=search)
-    search_button.grid(row=6, columnspan=2)
-        
-        # Define the show_data function
-    def show_data():
-        # Connect to the database
-        conn = sqlite3.connect('expense.db')
-        c = conn.cursor()
-
-        # Execute the SQL query
-        c.execute("SELECT * FROM expense ORDER BY id DESC")
-
-        # Fetch the results from database
-        records = c.fetchall()
-
-        # Clear the existing data from the treeview
-        for row in tree.get_children():
-            tree.delete(row)
-
-        # Insert the new data into the treeview
-        for row in records:
-            tree.insert('', 'end', values=row)
-
-        # Schedule the function to run again after 5 seconds
-        window.after(5000, show_data)
-
-    # Get data from the SQL database
-    show_data()
-    
-    # Refresh the treeview with updated data
-    def search_data():
-        # Connect to the database                                                                          
-        conn = sqlite3.connect('expense.db')
-        c = conn.cursor()
-
-        # Execute a SELECT statement to retrieve the data                                                     
-        c.execute("SELECT * FROM expense")
-
-        # Clear the treeview of any existing data                                                           
-        tree.delete(*tree.get_children())
-
-        # Insert the retrieved data into the treeview                                                       
-        for row in c.fetchall():
-            tree.insert("", "end", values=row)
-
-        # Disconnect from the database                                                                      
-        conn.close()
-        search_data()
-
-    def editData():
-        # Get the selected item from the treeview widget                                                   
-        selected_item = tree.selection()
-        if not selected_item:
-            messagebox.showerror("Error", "Please select an item to edit.")
-            return
-        item_id = selected_item[0]
-
-        # Get the user inputs from the GUI window                                                          
-        user_name = e1_val.get()
-        date = e2_val.get()
-        amount = e3_val.get()
-        type = e4_val.get()
-        category = e5_val.get()
-        enterprise = e6_val.get()
-
-        # Connect to the database                                                                          
-        conn = sqlite3.connect('expense.db')
-        c = conn.cursor()
-
-        # Update the data in the database table                                                            
-        c.execute("UPDATE expense SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name, date, amount, type, category, enterprise, item_id))
-        conn.commit()
-        messagebox.showinfo("Success", "Data edited successfully")
-
-        # Clear the input fields                                                                           
-        e1.delete(0, END)
-        e2.delete(0, END)
-        e3.delete(0, END)
-        e4.delete(0, END)
-        e5.delete(0, END)
-        e6.delete(0, END)
-                                                            
-    # Create a button to edit the stored database
-    b2 = Button(window, text="Edit", width=12, command=editData) 
-    b2.grid(row=7, columnspan=2)
-
-        # Define a function to update the database with the edited item
-    def update_data():
-        # Get the edited data from the entry boxes
-        user_name = e1_val.get()
-        date = e2_val.get()
-        amount = e3_val.get()
-        type = e4_val.get()
-        category = e5_val.get()
-        enterprise = e6_val.get()
-
-        # Update the data in the database table
-        try:
-            c.execute("UPDATE expense SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name, date, amount, type, category, enterprise, item_id))
-            conn.commit()
-            messagebox.showinfo("Success", "Data edited successfully")
-        except Exception as e:
-            conn.rollback()
-            messagebox.showerror("Error", f"Unable to update data: {str(e)}")
-    # Create a button to add data to the database
-    b1 = Button(window, text="Enter", width=12, command=dataEntry)
-    b1.grid(row=6, columnspan=2)
+# Add the tree widget to the window
+tree.grid(row=8, column=0, sticky='nsew')
+window.grid_rowconfigure(0, weight=0)
+window.grid_columnconfigure(0, weight=0)
 
 # Call the create_widgets() function
 create_widgets()
+"""
+def search():
+    global tree, search_entry
+        
+    # Get the search keyword from the search entry widget
+    keyword = search_entry.get()
+    # Convert the keyword to lowercase
+    keyword = keyword.lower()
 
-# Adjust the width of the label column
-window.grid_columnconfigure(0, minsize=100)
+    # Connect to the database
+    conn = sqlite3.connect('expense.db')
+    c = conn.cursor()
+
+    # Execute the SQL query with the search keyword
+    c.execute("SELECT * FROM expense WHERE LOWER('User Name') LIKE ? OR LOWER('Item Description') LIKE ? OR LOWER('Category') LIKE ? OR LOWER('Enterprise') LIKE ?",
+        ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
+
+    # Fetch the results from database
+    records = c.fetchall()
+
+    # Clear the existing data from the treeview
+    for row in tree.get_children():
+        tree.delete(row)
+
+    # If there are no records, display a message in the treeview
+    if not records:
+        tree.insert('', 'end', values=("No matching records found", "", "", "", "", "", ""))
+
+    # Insert the new data into the treeview
+    for row in records:
+        tree.insert('', 'end', values=row)
+                
+# Create a search entry widget
+search_entry = Entry(window)
+search_entry.grid(row=6, column=0, sticky='w')
+        
+# Create a search button
+search_button = Button(window, text="Search", width=12, command=search)
+search_button.grid(row=6, columnspan=2)
+"""
+     
+# Define the show_data function
+def show_data():
+    # Connect to the database
+    conn = sqlite3.connect('expense.db')
+    c = conn.cursor()
+
+    # Execute the SQL query
+    c.execute("SELECT * FROM expense ORDER BY id DESC")
+
+    # Fetch the results from database
+    records = c.fetchall()
+
+    # Clear the existing data from the treeview
+    for row in tree.get_children():
+        tree.delete(row)
+
+    # Insert the new data into the treeview
+    for row in records:
+        tree.insert('', 'end', values=row)
+
+    # Schedule the function to run again after 5 seconds
+    window.after(5000, show_data)
+
+# Get data from the SQL database
+show_data()
+    
+# Refresh the treeview with updated data
+def search_data():
+    # Connect to the database                                                                          
+    conn = sqlite3.connect('expense.db')
+    c = conn.cursor()
+
+    # Execute a SELECT statement to retrieve the data                                                     
+    c.execute("SELECT * FROM expense")
+
+    # Clear the treeview of any existing data                                                           
+    tree.delete(*tree.get_children())
+
+    # Insert the retrieved data into the treeview                                                       
+    for row in c.fetchall():
+        tree.insert("", "end", values=row)
+
+    # Disconnect from the database                                                                      
+    conn.close()
+    search_data()
+
+def editData():
+    # Get the selected item from the treeview widget                                                   
+    selected_item = tree.selection()
+    if not selected_item:
+        messagebox.showerror("Error", "Please select an item to edit.")
+        return
+    item_id = selected_item[0]
+
+    # Get the user inputs from the GUI window                                                          
+    user_name = e1_val.get()
+    date = e2_val.get()
+    amount = e3_val.get()
+    type = e4_val.get()
+    category = e5_val.get()
+    enterprise = e6_val.get()
+
+    # Connect to the database                                                                          
+    conn = sqlite3.connect('expense.db')
+    c = conn.cursor()
+
+    # Update the data in the database table                                                            
+    c.execute("UPDATE expense SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name, date, amount, type, category, enterprise, item_id))
+    conn.commit()
+    messagebox.showinfo("Success", "Data edited successfully")
+
+    # Clear the input fields                                                                           
+    e1.delete(0, END)
+    e2.delete(0, END)
+    e3.delete(0, END)
+    e4.delete(0, END)
+    e5.delete(0, END)
+    e6.delete(0, END)
+                                                            
+# Create a button to edit the stored database
+b2 = Button(window, text="Edit", width=12, command=editData) 
+b2.grid(row=7, columnspan=2)
+# Define a function to update the database with the edited item
+def update_data():
+    # Get the edited data from the entry boxes
+    user_name = e1_val.get()
+    date = e2_val.get()
+    amount = e3_val.get()
+    type = e4_val.get()
+    category = e5_val.get()
+    enterprise = e6_val.get()
+
+    # Update the data in the database table
+    try:
+        c.execute("UPDATE expense SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name, date, amount, type, category, enterprise, item_id))
+        conn.commit()
+        messagebox.showinfo("Success", "Data edited successfully")
+    except Exception as e:
+        conn.rollback()
+        messagebox.showerror("Error", f"Unable to update data: {str(e)}")
+    # Create a button to add data to the database
+b1 = Button(window, text="Enter", width=12, command=dataEntry)
+b1.grid(row=6, columnspan=2)
 
 # Start the main event loop
 window.mainloop()

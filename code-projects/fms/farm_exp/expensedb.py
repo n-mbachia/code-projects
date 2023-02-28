@@ -8,6 +8,9 @@ from tkinter import TOP
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter import filedialog
+import datetime
+
+now = datetime.datetime.utcnow()
 
 def create_table():
     global conn, c
