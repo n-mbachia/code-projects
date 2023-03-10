@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+
+"""The code was adopted from Python Coding YouTube channel Day 24"""
+
+def anagram(word1, word2):
+    word1 = word1.lower()
+    word2 = word2.lower()
+    return sorted(word1) == sorted(word2)
+
+print(anagram("cinema", "iceman"))
+print(anagram("men", "women"))
+print(anagram("cool", "loco"))
+print(anagram("a gentleman", "elegant man"))
+print(anagram("William' Shakespeare", "I'll make a wise phrase"))
