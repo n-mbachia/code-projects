@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+
+def curried_power(x):
+    def h(y):
+        return pow(x, y)
+    return h
+
+def map_to_range(start, end, f):
+    while start < end:
+        print(f(start))
+        start = start + 1
+
+map_to_range(0, 10, curried_power(2))
