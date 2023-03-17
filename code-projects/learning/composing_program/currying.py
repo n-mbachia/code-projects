@@ -1,17 +1,20 @@
 #!/usr/bin/python3
-"""Explains the currying technique where a function is transofmed into a chain of nested functions each taking a single argument"""
+"""Explains the currying technique where a function is transformed into a chain of nested functions each taking a single argument"""
 
-def curried_power(x):
-    """ Function takes  a single argument x and returns another funtion h"""
-    def h(y):
-        """ Function takes  a single argument y and raises 'x' to a power"""
-        return pow(x, y)
-    return h
-
+def curry(f):
+    """ Function takes  a single argument f and returns another funtion g"""
+    def g(x):
+        """ Function takes a single argument x and returns another funtion h"""
+        def h(y):
+            """ Function takes  a single argument y and raises 'x' to a power"""
+            return f(x, y) # Calls function f with arguments x, y
+        return h
+    return g
+curried_power = curry(pow)
 def map_to_range(start, end, f):
     """ Funtion takes three arguments: start, end and f to loop over an integer value"""
     while start < end:
-        print(f(start)) # calling function f on each value and printing result
+        print(f(start)) # print result
         start = start + 1
 
 map_to_range(0, 10, curried_power(2))
