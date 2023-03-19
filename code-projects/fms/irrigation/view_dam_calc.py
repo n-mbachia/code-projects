@@ -1,0 +1,133 @@
+#!/usr/bin/python3
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import numpy as np
+
+def plot_dam():
+    # Get the dimensions of the pond from the user
+    pond_length = float(length_entry.get())
+    pond_width = float(width_entry.get())
+    pond_depth = float(depth_entry.get())
+
+    # Define the corners of the pond
+    corners = [(0, 0), (pond_length, 0), (pond_length, pond_width), (0, pond_width)]
+
+    # Define the height of the pond at each corner
+    heights = [pond_depth, pond_depth, 0, 0]
+
+    # Define the vertices and faces of the dam
+    vertices = [(x, y, heights[i]) for i, (x, y) in enumerate(corners)]
+    indices = [(0, 1, 2), (2, 3, 0), (0, 3, 4), (4, 5, 0), (1, 6, 7), (7, 2, 1), (2, 7, 8), (8, 3, 2), (3, 8, 9), (9, 4, 3), (4, 9, 10), (10, 5, 4), (1, 6, 11), (11, 12, 1), (6, 7, 13), (13, 11, 6), (7, 8, 14), (14, 13, 7), (8, 9, 15), (15, 14, 8), (9, 10, 16), (16, 15, 9)]
+
+    faces = []
+    for i in range(len(indices)):
+        faces.append([indices[i][0], indices[i][1], indices[i][2]])
+
+    # Create a 3D plot of the dam
+    fig = plt.figure(figsize=(6, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_box_aspect((pond_length, pond_width, pond_depth))
+    ax.set_xlabel('Length (m)')
+    ax.set_ylabel('Width (m)')
+    ax.set_zlabel('Depth (m)')
+    ax.set_xlim(0, pond_length)
+    ax.set_ylim(0, pond_width)
+    ax.set_zlim(0, pond_depth)
+    ax.view_init(30, 30)
+    ax.plot_trisurf([v[0] for v in vertices], [v[1] for v in vertices], faces, [v[2] for v in vertices], cmap='Blues')
+    
+    # Embed the plot in the Tkinter GUI
+    canvas = FigureCanvasTkAgg(fig, master=root)
+    canvas.draw()
+    canvas.get_tk_widget().grid(row=4, column=0, columnspan=3)
+
+
+# Create the Tkinter GUI
+root = tk.Tk()
+root.title('Dam Calculator')
+
+# Add input fields for the dimensions of the pond
+length_label = tk.Label(root, text='Pond Length (m):')
+length_label.grid(row=0, column=0)
+length_entry = tk.Entry(root)
+length_entry.grid(row=0, column=1)
+
+width_label = tk.Label(root, text='Pond Width (m):')
+width_label.grid(row=1, column=0)
+width_entry = tk.Entry(root)
+width_entry.grid(row=1, column=1)
+
+depth_label = tk.Label(root, text='Pond Depth (m):')
+depth_label.grid(row=2, column=0)
+depth_entry = tk.Entry(root)
+depth_entry.grid(row=2, column=1)
+
+# Add a button to plot the dam
+plot_button = tk.Button(root, text='Plot Dam', command=plot_dam)
+plot_button.grid(row=3, column=1)
+
+# Start the GUI
+root.mainloop()
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+# Get the dimensions of the pond from the user
+pond_length = float(input("Enter the length of the pond in meters: "))
+pond_width = float(input("Enter the width of the pond in meters: "))
+pond_depth = float(input("Enter the depth of the pond in meters: "))
+
+# Set the angle of the slanted side walls to 45 degrees
+angle = np.pi / 4
+
+# Calculate the dimensions of the dam liner
+damlined_length = pond_length + 2 * pond_depth
+damlined_width = pond_width + 2 * pond_depth
+damlined_height = pond_depth
+
+# Define the coordinates of the vertices of the dam
+p1 = np.array([0, 0, 0])
+p2 = np.array([damlined_length, 0, 0])
+p3 = np.array([damlined_length, damlined_width, 0])
+p4 = np.array([0, damlined_width, 0])
+p5 = np.array([0, 0, damlined_height])
+p6 = np.array([damlined_length, 0, damlined_height])
+p7 = np.array([damlined_length, damlined_width, damlined_height])
+p8 = np.array([0, damlined_width, damlined_height])
+
+# Define the faces of the dam
+bottom_face = [p1, p2, p3, p4]
+top_face = [p5, p6, p7, p8]
+front_face = [p1, p2, p6, p5]
+back_face = [p3, p4, p8, p7]
+left_face = [p1, p4, p8, p5]
+right_face = [p2, p3, p7, p6]
+
+# Define the vertices and faces of the dam as a Poly3DCollection
+verts = [bottom_face, top_face, front_face, back_face, left_face, right_face]
+faces = Poly3DCollection(verts, alpha=0.5, facecolor='blue')
+
+# Set the angle of the plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.view_init(elev=10, azim=-45)
+
+# Add the Poly3DCollection to the plot and set the limits of the axes
+ax.add_collection3d(faces)
+ax.set_xlim([0, damlined_length])
+ax.set_ylim([0, damlined_width])
+ax.set_zlim([0, damlined_height])
+
+# Add labels to the axes
+ax.set_xlabel('Length (m)')
+ax.set_ylabel('Width (m)')
+ax.set_zlabel('Depth (m)')
+
+# Show the plot
+plt.show()
+"""
