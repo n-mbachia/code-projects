@@ -5,28 +5,14 @@
 from forex_python.converter import CurrencyRates, CurrencyCodes
 
 c = CurrencyRates()
-cc = CurrencyCodes()
 amount = int(input("Enter the amount of money you have: "))
 
-# Get all currency names
-currency_names = cc.get_currency_name()
-
-# Display currency names to user
-print("Choose a currency:")
-for name in currency_name:
-    print(name)
-
 # Get user input for currency name
-from_currency_name = input("From currency: ")
+from_currency = input("From currency: ").upper()
+to_currency = input("To currency: ").upper()
 
-# Get code for selected currency
-from_currency_code = cc.get_code(from_currency_name.upper())
+print(from_currency, " To ", to_currency, amount)
 
-to_currency_name = input("To currency: ")
-to_currency_code = cc.get_code(to_currency_name.upper())
-
-print(from_currency_code, " To ", to_currency_code, amount)
-
-result = c.convert(from_currency_code, to_currency_code, amount)
-print(f'{amount} {from_currency_code} is equal to {result} {to_currency_code}')
+result = c.convert(from_currency, to_currency, amount)
+print(f'{amount} {from_currency} is equal to {result} {to_currency}')
 

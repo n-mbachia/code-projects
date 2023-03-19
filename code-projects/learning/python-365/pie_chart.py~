@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+"""This code was adipted from Python Coding YouTube chgannel Day 27..."""
+
+import matplotlib.pyplot as pyplot
+
+# Define data 
+labels = ('Python', 'Java', 'Scala', 'C#')
+sizes = [45, 30, 15, 10]
+
+# Create pie chart
+pyplot.pie(sizes,
+           labels=labels,
+           autopct='%1.f%%', # Used to autoformat percentage values
+           counterclock=False, # display set in clockwise order
+           startangle=105)
+
+#Add title and ledger
+pyplot.title('Programming Languages')
+
+#Display the figure
+pyplot.show()
+
