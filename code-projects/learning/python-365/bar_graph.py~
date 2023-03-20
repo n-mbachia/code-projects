@@ -22,7 +22,7 @@ pyplot.title('Programming Languages Usage')
 # Add gridlines
 pyplot.grid(axis='y')
 
-# Rotate the lables
+# Rotate the lables by angle
 pyplot.xticks(rotation=45)
 
 # Display the chart

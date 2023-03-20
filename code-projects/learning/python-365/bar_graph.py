@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """This code was adopted from Python Coding Youtube Channels day 28..."""
+
 import matplotlib.pyplot as pyplot
 
 # Set us the data

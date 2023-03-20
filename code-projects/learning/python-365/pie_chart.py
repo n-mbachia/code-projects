@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""This code was adipted from Python Coding YouTube chgannel Day 27..."""
+"""This code was adopted from Python Coding YouTube chgannel Day 27..."""
 
 import matplotlib.pyplot as pyplot
 
