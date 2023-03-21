@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+"""The code is a program that corrects the spelling of a given text input usingthe TextBlob library."""
+from textblob import TextBlob
+
+def compose1(f, g):
+    """Function takes two functions as input and returns a new function """
+    return lambda x: f(g(x))
+
+def correct_spelling(string):
+    """Function takes a string input and applies Textblob correct() method. returns list of corrected words"""
+    li = string.split() # 
+    li = string.split() plit() method used to split words into a list of words
+    corrected_words = []
+    for word in li:
+        corrected_words.append(str(TextBlob(word).correct()))
+    return " ".join(corrected_words) # join() method returns string seprated by spaces
+
+# Prompt user input
+str_input = input("Enter a sentence: ")
+f = compose1(correct_spelling, lambda x: x)
+corrected = f(str_input)
+
+# Output to user screen
+print("Original Sentence: ", str_input)
+print("Corrected Sentence: ", corrected)
+
+"""Create two lambda functions that will be used as arguments to compose1. The first lambda function takes a string input and splits it into a list of words using the split() method. The second lambda function takes a list of words and applies the correct_spelling() function to each word in the list.
+
+Call compose1 with the two lambda functions as arguments, and assign the resulting function to the variable f.
+
+Call the function f with the input string as its argument, and assign the resulting list of corrected words to the variable corrected_word."""
