@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+
+"""This code was adopted from Python Coding Youtube channel Day 31..."""
+
+import plotly.express as px
+import pandas as pd
+import numpy as np
+
+# Define the data as a dictionary with two columns
+data_dict ={
+    'keys' : [10, 20, 30, 40],
+    'values' : ["Labour Cost", "Manufacturing Cost", "Promotion Cost", "Selling Cost"]
+}
+
+#Create a Pandas DataFrame from the data dictionary
+df = pd.DataFrame(data_dict)
+
+# Create a polar line chart using Plotly Express
+figure = px.line_polar(df, r ='keys', theta='values', line_close=True)
+
+# Add the first point to close the line chart
+r = np.append(figure.data[0]['r'], figure.data[0]['r'][0])
+theta = np.append(figure.data[0]['theta'], figure.data[0]['theta'][0])
+
+
+# Fill in the area enclosed by the polar line chart
+figure.update_traces(r=r, theta=theta, fill='toself')
+figure.show() # Show chart
