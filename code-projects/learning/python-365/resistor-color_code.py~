@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+"""This code was adopted from Python Coding YouTube channel Day 31..."""
+
+"""The following code prompts user to enter the color of the bands of an electrical resistor and Resistor has three color bands, each band represents a digit or a multiplier value. The calculation for the resistance value is done using the formula (n*10 + m) * 10^p, where n is the index of the first color, m is the index of the second color, and p is the index of the third color."""
+
+
+COLORS = ["black", "brown", "red", "orange", "yellow",
+          "green", "blue", "violet", "grey", "white"]
+def get_color(prompt):
+    """Fucntion to evaluate user input"""
+    while True: #Condition to confirm if input is True
+        color = input(prompt).lower() #converts to user input to  lowercase
+        if color in COLORS: # confirms input is True or False
+            return color
+        print("Invalid color. Please try again.") # Rertuned if False
+
+def calculate_resistor_value(colors):
+    """Funtion to calculate value of resistor based on color input"""
+    n, m, p = [COLORS.index(color) for color in colors]
+    q = int(((n * 10) + (m)) * (10 ** (p))) # calculates ohms value stored as q
+    z = q/1000 # calculates kilo-ohms from value q
+    return q, z
+
+if __name__ == '__main__':
+    first_color = get_color("Enter the 1st color: ")
+    second_color = get_color("Enter the 2nd color: ")
+    third_color = get_color("Enter the 3rd color: ")
+
+    q, z = calculate_resistor_value([first_color, second_color, third_color])
+
+print("\nThe resistor value is: ")
+print(f"{q}Ω and in Kilo-ohms : {z}kΩ") # Resistance value in Ohms and Kilo ohms
