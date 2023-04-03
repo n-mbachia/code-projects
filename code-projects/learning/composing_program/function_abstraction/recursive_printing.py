@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+
+n = int(input("Enter a number: "))
+
+def cascade(n):
+    print(n)
+    if n >= 10:
+        cascade(n//10)
+        print(n)
+cascade(n)
