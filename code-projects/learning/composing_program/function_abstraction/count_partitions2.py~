@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+def count_partitions(n, m, partition=[]):
+    """
+    Count the ways to partition n using parts up to m.
+
+    Args:
+    - n: an integer representing the number to be partitioned
+    - m: an integer representing the largest integer that can be used as a part
+    - partition: a list representing the current partition being constructed (default is an empty list)
+
+    Returns:
+    - count: the total number of possible partitions for n using parts up to m
+    """
+    if n == 0:
+        # if n is 0, we have constructed a valid partition and can print it out
+        print(partition)
+        return 1
+    elif n < 0 or m == 0:
+        # if n is negative or we've run out of parts to use, we cannot construct a valid partition
+        return 0
+    else:
+        # create copies of the current partition list to be used in the recursive calls
+        partition1 = partition.copy()
+        partition2 = partition.copy()
+
+        # add the current part to the first partition list and make a recursive call with n-1
+        partition1.append(m)
+        count1 = count_partitions(n - m, m, partition1)
+
+        # make a recursive call with n and m-1 without adding the current part to the second partition list
+        count2 = count_partitions(n, m - 1, partition2)
+
+        # return the sum of the counts from the two recursive calls
+        return count1 + count2
+
+result = count_partitions(6, 4)
+print(result)
