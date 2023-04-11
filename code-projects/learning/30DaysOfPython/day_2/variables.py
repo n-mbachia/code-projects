@@ -2,16 +2,26 @@
 # Day 2: 30 Days of python programming
 first_name = 'Mbachia'
 last_name = 'Ng\'ethe'
-full_name = first_name + last_name
+full_name = first_name + " " + last_name
 country = 'Kenya'
 city = 'Ol kalou'
 age = '32'
 year = '1989'
 is_married = 'Not married'
 is_true = 'True'
-is_light = 'Dark mode'
+is_light = 'Dark skin'
 first_name, last_name, is_married = 'Mbachia', 'Ng\'ethe', 'Not married'
 
+print("First name:", first_name)
+print("Last name:", last_name)
+print("Full name:", full_name)
+print("Country:", country)
+print("City:", city)
+print("Age:", age)
+print("Year:", year)
+print("Marriage status:", is_married)
+print("Complexion:", is_light)
+print()
 print(type('Mbachia'))
 print(type('Ng\'ethe'))
 print(type('Kenya'))
