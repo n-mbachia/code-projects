@@ -1,5 +1,7 @@
 #!/usr/bin/python3
+
 """This code was adopted from Python Coding YouTube channel day 41..."""
+
 import cv2
 
 image1 = cd2.imread(users/mbachia/code-projects/learning/python-365/create.jpg)
