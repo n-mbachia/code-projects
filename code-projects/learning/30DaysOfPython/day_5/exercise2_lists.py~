@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+
+age = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+age.sort()
+print(age)
+print(age.min())
