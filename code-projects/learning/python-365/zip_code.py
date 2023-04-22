@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+"""This code was adopted from Python Coding YouTube channel day 45..."""
+
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="geopiExercises")
+
+place = input("Enter the name of a city: ")
+location = geolocator.geocode(place)
+print(location)
