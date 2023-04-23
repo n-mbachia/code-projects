@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+"""This code was adopted from Python Coding YouTube channel day 46..."""
+
+def selection_sort(lst):
+    """ A sort function takes a list as argument"""
+    for i in range(len(lst) - 1): # iterates n - 1 times
+        minimum = i # i is starting point for next minimum element
+        for j in range(i + 1, len(lst)): # iterates over remaing unsorted list starting from i + 1
+            if(lst[j] < lst[minimum]): # comparison of j vs minimum
+                minimum = j # if j is smaller, its index is stored in minimum variable
+        if(minimum != i): 
+            """If the minimum index is not same as starting index 'i', then element at indices'i' & 'minimum' are swapped using tuple unpacking"""
+            lst[i], lst[minimum] = lst[minimum], lst[i]
+    return lst # returns sorted list
+
+# call program using the function name
+if __name__ == '__main__': 
+    lst = ['z', 'b', 'e', 'j', 'q', 'y', 'a', 'C', 'K', 'M', 'W', 'X'] # characters
+    print('Sorted List:', selection_sort(lst))
+    lst = [3, 4, 8, 1, 9, 0, 2, 7, 5, 6] # integers
+    print('Sorted List:', selection_sort(lst))
+    lst = ['Tracy', 'Ann', 'Patricia', 'Patrick', 'Daniel', 'Simon', 'Hannah', 'Calvin', 'Ethen', 'Elsie'] # string
+    print('Sorted List:', selection_sort(lst))
