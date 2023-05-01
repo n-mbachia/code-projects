@@ -82,13 +82,12 @@ def add():
 
 # Create a GUI window
 window = tk.Tk()
-window.title("Farm Manager Finances")
+window.title("Farm Financial Manager")
 
 # Set the window size and position
 width = window.winfo_screenwidth()
 height = window.winfo_screenheight()
 window.geometry("%dx%d+0+0" % (width/2, height))
-
 
 # Create labels and entry boxes for user input
 l1 = Label(window, text="User Name")

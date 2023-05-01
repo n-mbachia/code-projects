@@ -1,4 +1,4 @@
-x#!/usr/bin/python3
+#!/usr/bin/python3
 """This code was adopted from Python Coding YouTube Channel Day 17"""
 
 def age_calculator():
@@ -20,3 +20,5 @@ def age_calculator():
     print("Your age is {} years.".format(age))
 
 age_calculator()
+
+# improve this code 

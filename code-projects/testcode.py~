@@ -3,7 +3,7 @@ from tkinter import ttk
 
 def create_widgets():
     # Create a Treeview widget
-    tree = ttk.Treeview(window, columns=("ID", "Name"))
+    tree = ttk.Treeview(root, columns=("ID", "Name"))
     tree.heading("#0", text="", anchor="w")
     tree.heading("ID", text="ID", anchor="w")
     tree.heading("Name", text="Name", anchor="w")
@@ -12,7 +12,7 @@ def create_widgets():
     tree.column("Name", width=100, anchor="w")
 
     # Add scrollbar to the treeview
-    vsb = ttk.Scrollbar(window, orient="vertical", command=tree.yview)
+    vsb = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
     vsb.pack(side='right', fill='y')
     tree.configure(yscrollcommand=vsb.set)
 
