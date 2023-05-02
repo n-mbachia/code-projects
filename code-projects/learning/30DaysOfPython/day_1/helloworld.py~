@@ -35,6 +35,6 @@ print(type({'city': 'Nairobi',
             'continent': 'Africa'}
            )) # dictionary
 print(type(('Earth', 'moon', 'sun'))) # tuple
-print(type({3.14, 6.87, 2, 1, 0}))
+print(type({3.14, 6.87, 2, 1, 0})) # set
 print()
 
