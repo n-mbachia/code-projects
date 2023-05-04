@@ -1,18 +1,15 @@
 #!/usr/bin/python3
 
 ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
-ages_sorted = age.sorted()
 
-# find min and max age
-min_age = min(ages_sorted)
-max_age = max(ages_sorted)
+# Sort the list of age
+ages.sort()
+print(ages,'\n')
 
-# add min and max ages to the list
-ages_updated = ages_sorted + [min_age, max_age]
+# Find the minimum and maximum ages
+min_age = ages[0]
+max_age = ages[-1]
 
-# find the median age
-n = len(ages_updated)
-n % 2 == 0
-
-print(age)
-print(age.min())
+print("Minimum age:", min_age,'\n')
+print("Maximum age:", max_age,'\n')
+print("The total number of ages is:", len(ages),'\n')

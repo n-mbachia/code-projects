@@ -231,11 +231,13 @@ def show_data():
     # Schedule the function to run again after 5 seconds
     window.after(5000, show_data)
 # Displays database on the window
+"""
 def view():
     show_data()
 
 view()
-    
+"""
+
 def search():
     global tree, search_entry
     
