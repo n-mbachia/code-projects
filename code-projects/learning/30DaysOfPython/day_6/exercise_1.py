@@ -5,28 +5,28 @@
 
 # create and empty tuple
 empty_tuple = tuple()
-print(f'This is an empty tuple, {tuple()}')
+print(f'This is an empty tuple, {tuple()}\n')
 
 # tuple containing names of brothers
 brothers = ('Kama', 'Dennis', 'Cliff')
-print(f'The names of my brothers, {brothers}')
+print(f'The names of my brothers, {brothers}\n')
 
 # tuple conatining names of sisters
 sisters = ('Irene', 'Grace', 'Emelda')
-
+print(f'The names of my sisters, {sisters}\n')
 # join sister and brother tuple
 siblings = brothers + sisters
-print(f'The names of my sisters,{sisters}')
+print(f'The names of my all my siblings are, {siblings}\n')
 
 # determine length of Siblings tuple
-print(f'The total number of sinlings is, {len(siblings)}')
+print(f'The total number of sinlings is, {len(siblings)}\n')
 
 # Modify siblings by adding parents names
 parent_names = list(siblings)
 parent_names.append('Joseph')
 parent_names.append('Naomy')
 family_members = tuple(parent_names)
-print(f'The name of my family members, {family_members}')
+print(f'The name of my family members, {family_members}\n')
 
 # Level 2
 # create tuples and join them
@@ -34,14 +34,29 @@ fruits = ('Melon', 'Apple', 'Pineapple', 'Banana')
 vegetables = ('Kales', 'Spinach', 'Brocolli', 'Tomatoes')
 animal_products = ('Beef', 'Chicken', 'Turkey', 'Choven')
 food_stuff_tp = fruits + vegetables + animal_products
-print(f'A tuple containing various food stuffs; {food_stuff_tp}')
+print(f'A tuple containing various food stuffs; {food_stuff_tp}\n')
 
 # convert tuple to list
 food_stuff_lst = list(food_stuff_tp)
-print(f'A tuple converted in to a list{food_stuff_lst}/n')
+print(f'A tuple converted in to a list{food_stuff_lst}\n')
 
-# check it item exists in tuple
+# slice the middle items
+print(f'The lenth of the tuple is, {len(food_stuff_tp)}\n')
+middle_item = food_stuff_tp[5:7]
+print(f'The middle items in the tuple is, {middle_item}\n')
+
+# slice last three items
+last_three = food_stuff_lst[-3:]
+print(f'The last three items in the lsit are: {last_three}\n')
+
+# delete food products tuple
+del food_stuff_tp
+print("The food stuff tuple has been deleted\n")
+
+# check if item exists in tuple
 nordic_countries = ('Denmark', 'Finland','Iceland', 'Norway', 'Sweden')
-print(nordic_countries)
-print('Estonia' in nordic_countries)
-print('Iceland' in nordic_countries)
+print(f'The Nordic Countries are: {nordic_countries}\n')
+check_estonia = 'Estonia' in nordic_countries
+print(f'Is Estonia part of Nordic Countries: {check_estonia}\n')
+check_iceland= 'Iceland' in nordic_countries
+print(f'Is iceland part of nordic countries: {check_iceland}\n')
