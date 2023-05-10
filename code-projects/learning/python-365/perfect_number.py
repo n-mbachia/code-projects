@@ -10,8 +10,12 @@ def perfect_number(number):
     return sum == number
 
 if __name__ == "__main__":
-    
-    n = int(input("Enter a number to check: "))
-    result = perfect_number(n)
-    print(f"You entered the number, {n}, which is aperfect number" )
-        
+    try:
+        n = int(input("Enter a number to check: "))
+        result = perfect_number(n)
+        if result:
+            print(f"You entered the number, {n}, which is a perfect number" )
+        else:
+            print(f'You entered the number, {n} which is not a perfect number')
+    except ValueError:
+        print('Invalid input. Please enter a valid integer')             
