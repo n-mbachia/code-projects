@@ -8,5 +8,6 @@
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
-    "codegpt.apiKey": "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"
+    "codegpt.apiKey": "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",
+    "git.ignoreLimitWarning": true
 }
