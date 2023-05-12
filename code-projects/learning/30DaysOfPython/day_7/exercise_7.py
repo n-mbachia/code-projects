@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+"""This exercise is for sets as learned"""
+
+# sets
+it_companies = {'Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon'}
+A = {19, 22, 24, 20, 25, 26}
+B = {19, 22, 20, 25, 26, 24, 28, 27}
+age = [22, 19, 24, 25, 26, 24, 25, 24]
+
+# exercise level 1
+#  find length of set it_companies
+print(f'The total number of it companies is:', len(it_companies))
+
+# Add 'Twitter' to it_companies
+it_companies.add('Twitter')
+print(it_companies)
+
+# insert multiple IT companies
+multiple_it = ['Yahoo', 'Bloomberg', 'OpenAI']
+it_companies.update(multiple_it)
+print(it_companies)
+
+# remove one it company from set
+removed_company = it_companies.pop()
+print(f'The removed company using the pop method is: ', removed_company)
+
+# difference between removed and discard. 
+
+
+# exercise level 2
+# join A & B
+A.update(B)
+print(A)
+
+# find A intersection B
+print(A.intersection(B))
+
+
+# Subset
+print(A.issubset(B))
+
+
+# Disjoin
+print(A.isdisjoint(B))
+
+# join A with B and B with A
+print(A.union(B))
+print(B.union(B))
+
+# Symmetry difference
+print(A.symmetric_difference(B))
+
+# Delete sets completely
+del it_companies
+del A
+del B
+
+# Exercise level 3
+# convert age to set and compaire length of list and set
+age_set = set(age)
+length_age_set = len(age_set)
+length_age = len(age)
+print(f'The length of set is: {length_age_set} while length of list is: {length_age}')
+print("""A string is a data type that can accept a series of characters or a character, 
+while a list is an ordered string of characters that is enslosed in square brackets
+a tuple is an immutable  data type of ordered items that is enslosed in curved brackets while
+set is unique value data type that is enclosed in curly brackets. """)
+sentence = 'I am a teacher and I love to inspire and teach people'
+print(sentence.split())
+sentence_set = set(sentence)
+print(sentence_set)
