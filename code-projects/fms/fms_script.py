@@ -10,6 +10,8 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter import filedialog 
 import pandas as pd
+import numpy as np
+import sys
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from tkcalendar import DateEntry
@@ -85,40 +87,40 @@ window = tk.Tk()
 window.title("Farm Financial Manager")
 
 # Set the window size and position
-width = window.winfo_screenwidth()
-height = window.winfo_screenheight()
-window.geometry("%dx%d+0+0" % (width/2, height))
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+window.geometry("%dx%d+0+0" % (screen_width/2, screen_height))
 
 # Create labels and entry boxes for user input
-l1 = Label(window, text="User Name")
+l1 = Label(window, text="User Name:")
 l1.grid(row=0, column=0)
 e1_val = StringVar()
 e1 = Entry(window, textvariable=e1_val)
 e1.grid(row=0, column=1)
 
 # Create labels and entry boxes for date input
-l2 = Label(window, text="Date (DD/MM/YYYY)")
+l2 = Label(window, text="Date (DD/MM/YYYY):")
 l2.grid(row=1, column=0)
 e2_val = StringVar()
 e2 = Entry(window, textvariable=e2_val)
 e2.grid(row=1, column=1)
 
 # Create labels and entry boxes for amount input
-l3 = Label(window, text="Amount")
+l3 = Label(window, text="Amount:")
 l3.grid(row=2, column=0)
 e3_val = StringVar()
 e3 = Entry(window, textvariable=e3_val)
 e3.grid(row=2, column=1)
 
 # Create labels and entry boxes for type input
-l4 = Label(window, text="Item Description")
+l4 = Label(window, text="Item Description:")
 l4.grid(row=3, column=0)
 e4_val = StringVar()
 e4 = Entry(window, textvariable=e4_val)
 e4.grid(row=3, column=1)
 
 # Define categories as a list
-categories = ['income', 'Expense', 'Loan']
+categories = ['Income', 'Expense', 'Loan']
 
 # Create the label and Combobox for the category
 l5 = tk.Label(window, text="Category:")
@@ -155,7 +157,6 @@ def add_category(combobox, stringvar):
     # Set the selected value to the new value
     combobox.current(current_categories.index(current_value))
 
-
 # Create labels and entry boxes for enterprise input
 l6 = Label(window, text="Enterprise")
 l6.grid(row=5, column=0)
@@ -166,88 +167,30 @@ e6.grid(row=5, column=1)
 tree = ttk.Treeview(window)
 tree['columns'] = ('ID', 'User Name', 'Date', 'Amount', 'Item Description', 'Category', 'Enterprise')
 
+# View the data on the GUI, Connect to the database
+conn = sqlite3.connect('finance.db')
 
-def create_widgets():
-    global tree, search_entry, search_button
-    
-    # Create a Treeview widget
-    tree.heading("#0", text="", anchor="w")
-    tree.heading("ID", text="ID", anchor="w")
-    tree.heading("User Name", text="User Name", anchor="w")
-    tree.heading("Date", text="Date", anchor="w")
-    tree.heading("Amount", text="Amount", anchor="w")
-    tree.heading("Item Description", text="Expense Type", anchor="w")
-    tree.heading("Category", text="Category", anchor="w")
-    tree.heading("Enterprise", text="Enterprise", anchor="w")
-    tree.column("#0", width=0, stretch="no")
-    tree.column("ID", width=50, anchor="w")
-    tree.column("User Name", width=100, anchor="w")
-    tree.column("Date", width=100, anchor="w")
-    tree.column("Amount", width=100, anchor="w")
-    tree.column("Item Description", width=100, anchor="w")
-    tree.column("Category", width=100, anchor="w")
-    tree.column("Enterprise", width=100, anchor="w")
-    
-    # Add scrollbar to the treeview
-    vsb = ttk.Scrollbar(window, orient="vertical", command=tree.yview)
-    vsb.pack(side='right', fill='y')
-    tree.configure(yscrollcommand=vsb.set)
+# Retrieve data from the 'finance' table
+query = "SELECT * FROM finance"
+df_from_db = pd.read_sql_query(query, conn)
 
-    # Add the tree widget to the window
-    tree.pack(expand=YES, fill=BOTH)
-    
-    # Create a search entry widget
-    search_entry = Entry(window)
-    search_entry.pack(side=LEFT, padx=10, pady=10)
-    
-    # Create a search button
-    search_button = Button(window, text="Search", command=search)
-    search_button.pack(side=LEFT, padx=10, pady=10)
-    
-    # Get data from the SQL database
-    show_data()
+# Close the database connection
+conn.close()
 
-def show_data():
-    global tree
-    
-    # Connect to the database
-    conn = sqlite3.connect('finance.db')
-    c = conn.cursor()
+# Create a Text widget to display the data
+txt = tk.Text(window)
+txt.grid(row=10, column=1)
 
-    # Execute the SQL query
-    c.execute("SELECT * FROM finance ORDER BY id DESC")
-
-    # Fetch the results from database
-    records = c.fetchall()
-
-    # Clear the existing data from the treeview
-    for row in tree.get_children():
-        tree.delete(row)
-
-    # Insert the new data into the treeview
-    for row in records:
-        tree.insert('', 'end', values=row)
-
-    # Schedule the function to run again after 5 seconds
-    window.after(5000, show_data)
-# Displays database on the window
-"""
-def view():
-    show_data()
-
-view()
-"""
+# Insert the retrieved data into the Text widget
+txt.insert(tk.END, df_from_db.to_string(index=False))
 
 def search():
-    global tree, search_entry
-    
+    global tree, search_entry    
     # Get the search keyword from the search entry widget
     keyword = search_entry.get()
-
     # Connect to the database
     conn = sqlite3.connect('finance.db')
     c = conn.cursor()
-
     # Execute the SQL query with the search keyword
     c.execute("SELECT * FROM finance WHERE 'User Name' LIKE ? OR 'Item Description' LIKE ? OR 'Category' LIKE ? OR 'Enterprise' LIKE ?",
               ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
@@ -263,45 +206,95 @@ def search():
     for row in records:
         tree.insert('', 'end', values=row)
 
-
-# Create a function to edit data in the database 
 def edit_data():
     global tree
-    # Get the selected item from the treeview widget
+
     selected_item = tree.selection()
     if not selected_item:
         messagebox.showerror("Error", "Please select an item to edit.")
         return
     item_id = selected_item[0]
 
-    # Get the user inputs from the GUI window 
-    id = selected_item[0]
-    user_name = e1_val.get() 
-    date = e2_val.get() 
-    amount = e3_val.get() 
-    type = e4_val.get() 
-    category = e5_val.get() 
-    enterprise = e6_val.get() 
+    # Get the user inputs from the GUI window
+    user_name = e1_val.get()
+    date = e2_val.get()
+    amount = e3_val.get()
+    item = e4_val.get()
+    category = e5_val.get()
+    enterprise = e6_val.get()
 
+    # Validate the user inputs
+    if not all([user_name, date, amount, item, category, enterprise]):
+        messagebox.showerror("Error", "Please fill in all the fields.")
+        return
+
+    # Update the data in the database table
+    update_data(item_id, user_name, date, amount, item, category, enterprise)
+
+    # Clear the input fields
+    e1.delete(0, tk.END)
+    e2.delete(0, tk.END)
+    e3.delete(0, tk.END)
+    e4.delete(0, tk.END)
+    e5.delete(0, tk.END)
+    e6.delete(0, tk.END)
+
+    # Refresh the treeview with updated data
+    refresh_treeview()
+
+
+def update_data(item_id, user_name, date, amount, item, category, enterprise):
     # Connect to the database
     conn = sqlite3.connect('finance.db')
     c = conn.cursor()
 
-    # Update the data in the database table 
-    c.execute("UPDATE finance SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?", (user_name ,date ,amount ,type ,category ,enterprise, id)) 
-    conn.commit() 
-    messagebox.showinfo("Success", "Data edited successfully") 
-            
-    # Clear the input fields
-    e1.delete(0, END)
-    e2.delete(0, END)
-    e3.delete(0, END)
-    e4.delete(0, END)
-    e5.delete(0, END)
-    e6.delete(0, END)
+    # Update the data in the database table
+    c.execute("UPDATE finance SET user_name=?, date=?, amount=?, item=?, category=?, enterprise=? WHERE id=?",
+              (user_name, date, amount, item, category, enterprise, item_id))
+    conn.commit()
 
-    # Refresh the treeview with updated data
-    edit_data()
+
+def refresh_treeview():
+    # Clear the existing items in the treeview
+    tree.delete(*tree.get_children())
+
+    # Fetch data from the database
+    conn = sqlite3.connect('finance.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM finance")
+    rows = c.fetchall()
+
+    # Insert the fetched data into the treeview
+    for row in rows:
+        tree.insert("", tk.END, values=row)
+
+    conn.close()
+
+def handle_selection(event):
+    # Get the selected item from the treeview widget
+    selected_item = tree.selection()
+
+    # Perform actions based on the selected item
+    if selected_item:
+        # Extract the item ID from the selected item
+        item_id = selected_item[0]
+
+        # Retrieve the data associated with the selected item
+        item_data = tree.item(item_id)
+
+        # Access the values of the selected item
+        user_name, date, amount, item, category, enterprise = item_data['values']
+
+        # Populate the input fields with the selected data
+        e1_val.set(user_name)
+        e2_val.set(date)
+        e3_val.set(amount)
+        e4_val.set(item)
+        e5_val.set(category)
+        e6_val.set(enterprise)
+
+# Bind the selection event to the handle_selection function
+tree.bind("<<TreeviewSelect>>", handle_selection)
 
 # Define the calendar widget globally
 cal = DateEntry(window, width=12, background='darkblue', foreground='white', borderwidth=2)
@@ -362,42 +355,44 @@ def export_data():
     # Re-enable the button after the export is complete
     export_button.config(state='normal')
 
-# Create a label widget for cal_start
-start_label = tk.Label(window, text="Start Date:", font=("Arial", 12))
-start_label.grid(row=8, column=0)
-
 # To handle user select input
 def handle_click(event):
     print(cal.get_date())
 
+# Create a label widget for cal_start
+start_label = tk.Label(window, text="Start Date:", font=("Arial", 12))
+start_label.grid(row=8, column=0)
+
 # Create the DateEntry widget for start date
-cal_start = DateEntry(window, width=12, background='darkblue',
-                      foreground='white', borderwidth=2)
-cal_start.grid(row=9, column=0)
+cal_start = DateEntry(window, width=12, background='darkblue', foreground='white', borderwidth=2)
+cal_start.grid(row=8, column=1)
 cal.bind("Start Date", handle_click)
 
 # Create a label widget for cal_end
 end_label = tk.Label(window, text="End Date:", font=("Arial", 12))
-end_label.grid(row=8, column=1)
+end_label.grid(row=9, column=0)
 cal.bind("End Date", handle_click)
 
 # Create the DateEntry widget for end date
-cal_end = DateEntry(window, width=12, background='darkblue',
-                    foreground='white', borderwidth=2)
+cal_end = DateEntry(window, width=12, background='darkblue', foreground='white', borderwidth=2)
 cal_end.grid(row=9, column=1)
 
 # Create a button to add data to the database
 b1 = Button(window, text="Enter", width=12, command=add)
 b1.grid(row=6, columnspan=2)
 # Create a button to edit the stored database                                                          
-b2 = Button(window, text="Edit", width=12, command=edit_data)
+b2 = Button(window, text="Edit", width=12, command=handle_selection)
+b2.bind(handle_selection)
 b2.grid(row=7, columnspan=2)
+
 # Create a button to Print to excel last 15 entries
 b3 = Button(window, text="Export Report To Excel", width=25, command=export)
-b3.grid(row=10, columnspan=2)
-# Create a button to display data in a Treeview widget
-# b4= Button(window, text="View data", width=15, command=create_widgets)
-# b4.grid(row=9, columnspan=2)
+b3.grid(row=11, columnspan=2)
 
 # Start the main event loop
+while True:
+    # Do something
+    window.update()
+    if window.winfo_exists():
+        break
 window.mainloop()
