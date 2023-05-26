@@ -1,0 +1,49 @@
+#!/usr/bin/python3
+"""This code was adopted from Python Coding YouTube channel day 57..."""
+
+import matplotlib.pyplot as plt
+
+def create_scatter_plot(data, labels):
+  """Creates a scatter plot of the given data.
+
+  Args:
+    data: A list of lists, where each inner list contains two arrays, one for the x-coordinates of the data points and one for the y-coordinates of the data points.
+    labels: A list of strings, where each string is the label for a data set.
+
+  Returns:
+    A matplotlib figure object.
+  """
+
+  fig, ax = plt.subplots()
+
+  for i, (x, y) in enumerate(data):
+    ax.scatter(x, y, c=labels[i], label=labels[i])
+
+  ax.set_xlabel('Age')
+  ax.set_ylabel('Hours')
+  ax.set_title('Activities scatter graph')
+  ax.legend()
+
+  return fig
+
+
+def main():
+  # Create the data.
+  riding = ((17, 18, 21, 22, 19, 21, 25, 22, 25, 24), (3, 6, 3.5, 4, 5, 6.3, 4.5, 5, 4.5, 4))
+  swimming = ((17, 18, 20, 19, 22, 21, 21, 23, 19, 21, 24), (8, 9, 7, 10, 7.5, 9, 8, 7, 8.5, 9))
+  sailing = ((31, 28, 29, 36, 27, 32, 34, 35, 33, 39), (4, 6.3, 6, 3, 5, 3, 5, 7.5, 2, 7, 4))
+
+  # Create the labels.
+  labels = ['Riding', 'Swimming', 'Sailing']
+
+  # Create the scatter plot.
+  fig = create_scatter_plot([riding, swimming, sailing], labels)
+
+  # Make the graph interactive.
+  plt.ion()
+
+  # Show the graph.
+  plt.show()
+
+if __name__ == '__main__':
+  main()
