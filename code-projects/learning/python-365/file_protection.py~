@@ -10,8 +10,8 @@ for page_number in range(len(pdf.pages)):
     pdfwriter.add_page(pdf.pages[page_number])
 password=getpass.getpass(prompt="Enter a password: ")
 pdfwriter.encrypt(password)
-with open("/Users/mbachia/code-projects/learning/python-365/36 Questions.pdf") as f:
+with open("/Users/mbachia/code-projects/learning/python-365/36 Questions.pdf", "wb") as f:
     pdfwriter.write(f)
 
-print("Now file is passwrod protected")
+print("Now file is password protected")
 
