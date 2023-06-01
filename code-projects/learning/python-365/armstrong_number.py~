@@ -1,0 +1,21 @@
+#!/usr/bin/python3
+"""This code was adopted from Python Coding YouTube channel day 59..."""
+
+"""An amstrong number is a number that is equal to the sum of its own digits raised to the power of the number of digits."""
+
+# get user input
+num = int(input("Enter a number: ")
+
+sum = 0 # initializes the sum
+
+# find sum of cube of each digit
+temp = num
+while temp > 0: 
+          digit = temp % 10
+          sum += digit ** 3
+          temp //= 10
+
+if num == sum:
+              print(num, "is an Armstrong number")
+else:
+              print(num, "is not an Armstrong number")
