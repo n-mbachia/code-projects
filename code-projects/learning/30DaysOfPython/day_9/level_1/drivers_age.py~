@@ -1,0 +1,9 @@
+#!/usrs/bin/python3
+
+drivers_age = int(input('Enter your age: '))
+difference = (18 - drivers_age)
+
+if drivers_age >= 18:
+    print('you are old enough to learn to drive')
+else:
+    print('You need', difference, 'more years to learn to drive')
