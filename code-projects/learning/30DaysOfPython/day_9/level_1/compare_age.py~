@@ -1,18 +1,21 @@
 #!/usrs/bin/python3
 
-"""compare agfe to determine who is older"""
+"""Compare age to determine who is older or younger"""
 
 your_age = int(input('enter your age: '))
-my_age = 34
-age_difference = (my_age - your_age)
+my_age = 34 # defined age
 
 if my_age > your_age:
+    age_difference = my_age - your_age
     if age_difference == 1:
-        print('You are', age_difference, 'year older than me')
-    elif age_difference < my_age:
-        print('You are', age_difference, 'years younger than me')
+        print('You are',abs(age_difference), 'year older than me')
     else:
-        print('You are', age_difference, 'years older than me')
+        print('You are',abs(age_difference), 'years younger than me')
+elif your_age > my_age: 
+    age_difference = your_age - my_age
+    if age_difference == -1:
+        print(f'You are {age_differnce} year older than me.')
+    else:
+        print(f'You are {age_difference} years older than me.')
 else:
-    if my_age == your_age:
-        print('We are the same age')
+    print('We are the same age')
