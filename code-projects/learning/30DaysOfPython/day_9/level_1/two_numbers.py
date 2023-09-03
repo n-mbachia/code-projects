@@ -1,0 +1,13 @@
+#!/usrs/bin/python3
+
+"""This code compaires two numbers and prints the number that is greater that the other."""
+
+a = int(input("Enter a number between 1 and 9: "))
+b = int(input("Enter a number between 1 and 9: "))
+
+if a > b:
+    print(f"{a} is greater than {b}")
+elif a == b:
+    print("Both numbers are equal")
+else:
+    print(f"{b} is greater than {a}")
