@@ -13,4 +13,4 @@ elif user_input in ['march', 'april', 'may']:
 elif user_input in ['june', 'july', 'august']:
     print("Summer")
 else:
-    print("invalid input. please eneter a valid month")
+    print("invalid input. Please enter a valid month")
