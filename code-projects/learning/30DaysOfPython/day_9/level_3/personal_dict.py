@@ -43,3 +43,14 @@ if 'skills' in person:
         print("The person is a fullstack developer")
     else:
         print('Unknown title')
+
+full_name = f"{person.get('first_name')} {person.get('last_name')}"
+
+if person.get('is_married') and person.get('country'):
+    print(f"{full_name} lives in {'country'}. He is married")
+elif person.get('is_married') or person.get('country'):
+    print(f"{full_name} is not married. He lives in {'country'}")
+else:
+    print(f"{full_name} is neither not married or does line in {'country'}")
+
+
