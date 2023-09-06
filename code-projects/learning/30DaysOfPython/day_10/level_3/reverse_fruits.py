@@ -1,0 +1,11 @@
+#!/usrs/bin/python3
+
+"""This is a fruit list, ['banana', 'orange', 'mango', 'lemon'] reverse the order using loop."""
+
+fruit_list = ['banana', 'orange', 'mango', 'lemon']
+
+reversed_list = []
+
+for i in range(len(fruit_list) -1, -1, -1):
+    reversed_list.append(fruit_list[i])
+print(reversed_list)
