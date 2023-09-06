@@ -197,6 +197,12 @@ countries = [
   'Zimbabwe',
 ];
 
-for c in countries:
-    if c == 'land':
-        print(countries)
+land_found = False
+
+for country in countries:
+    if 'land' in country:
+        land_found = True
+        continue
+
+if land_found:
+    print(country)
