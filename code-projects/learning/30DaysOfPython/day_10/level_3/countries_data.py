@@ -2602,7 +2602,7 @@ countries = [
         "capital": "Lusaka",
         "languages": [
             "English"
-        ],
+y        ],
         "population": 15933883,
         "flag": "https://restcountries.eu/data/zmb.svg",
         "currency": "Zambian kwacha"
@@ -2621,30 +2621,28 @@ countries = [
     }
 ]
 
-max_population = 0
-max_population_country = ""
+# Task 1: Total number of languages in the data
 
-for country in countries:
-    population = country["population"]
-    if population > max_population:
-        max_population = population
-        max_population_country = country["name"]
-print(f"The country with the highest population is {max_population_country} with a population of {max_population}.")
+# Task 2: Find the ten most spoken languages from the data
+def find_most_spoken_languages(countries):
+  """Finds the 10 most spoken languages in the list of countries."""
+  most_spoken_languages = []
 
-num_languages = 0
-
-for country in countries:
+  for country in countries:
     languages = country["languages"]
-    num_languages += len(languages)
-
-print(f"There are {num_languages} languages in the data provided")
-
-
-most_spoken_language = []
-
-for country in countries:
-    language = country["languages"]
     for language in languages:
-        if language not in most_spoken_language:
-            most_spoken_language.append(language)
-    print("most_spoken_languages")
+      if language not in most_spoken_languages:
+        most_spoken_languages.append(language)
+
+  most_spoken_languages.sort(key=lambda language: len(language), reverse=True)
+
+  return most_spoken_languages[:10]
+
+
+most_spoken_languages = find_most_spoken_languages(countries)
+
+print(f"The 10 most spoken languages are:")
+for language in most_spoken_languages:
+  print(language)
+
+# task 3: Find the 10 most populated countries in the world
