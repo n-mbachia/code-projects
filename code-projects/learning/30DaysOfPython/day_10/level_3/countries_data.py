@@ -2601,8 +2601,8 @@ countries = [
         "name": "Zambia",
         "capital": "Lusaka",
         "languages": [
-            "English"
-y        ],
+            "English",
+        ],
         "population": 15933883,
         "flag": "https://restcountries.eu/data/zmb.svg",
         "currency": "Zambian kwacha"
@@ -2621,28 +2621,43 @@ y        ],
     }
 ]
 
-# Task 1: Total number of languages in the data
+# Load the data as a list of dictionaries
+data = countries
 
-# Task 2: Find the ten most spoken languages from the data
-def find_most_spoken_languages(countries):
-  """Finds the 10 most spoken languages in the list of countries."""
-  most_spoken_languages = []
+# Find the total number of languages
+num_languages = 0
+for country in data:
+  num_languages += len(country["languages"]) # this sums up all languages in the data
 
-  for country in countries:
-    languages = country["languages"]
-    for language in languages:
-      if language not in most_spoken_languages:
-        most_spoken_languages.append(language)
+print(f"\nThere are {num_languages} languages in the data.")
 
-  most_spoken_languages.sort(key=lambda language: len(language), reverse=True)
+# Find the 10 most spoken languages
+most_spoken_languages = [] # creates empty list
+for country in data: # data iteration loop 
+  for language in country["languages"]: # language iteration loop 
+    if language not in most_spoken_languages: # condition to check 
+      most_spoken_languages.append(language) # code adds the language to created list
 
-  return most_spoken_languages[:10]
+most_spoken_languages.sort(key=lambda language: country["languages"].count(language), reverse=True) 
+# sorts list of most spoken language in descending order based on how many times it appears in the data
 
-
-most_spoken_languages = find_most_spoken_languages(countries)
-
-print(f"The 10 most spoken languages are:")
-for language in most_spoken_languages:
+print(f"\nThe 10 most spoken languages are:")
+for language in most_spoken_languages[:10]:
   print(language)
 
-# task 3: Find the 10 most populated countries in the world
+# Find the 10 most populated countries
+most_populated_countries = [] # create empty list
+for country in data: # loop iteration
+  if country["population"] not in most_populated_countries: # condition to check
+    # create dictionary with name and population as key where the code executed adds to empty list
+    most_populated_countries.append({
+      "name": country["name"],
+      "population": country["population"]
+    }) 
+
+most_populated_countries.sort(key=lambda country: country["population"], reverse=True) # lambda is a shorthand function
+# sorts the list of most populated country in the data by descending order.
+ 
+print(f"\nThe 10 most populated countries are:")
+for country in most_populated_countries[:10]: # outputs the first ten countries in the sorted list
+  print(f"{country['name']} ({country['population']})")
