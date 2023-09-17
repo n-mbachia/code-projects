@@ -29,7 +29,6 @@ def is_valid_variable(variable_name):
     return True
 
 is_variable = is_valid_variable("my_varibale")
-is_variable = is_valid_variable("123variable")
 
 if is_variable:
     print(f"This is valid variable name. \n")

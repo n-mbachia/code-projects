@@ -13,23 +13,24 @@ def is_valid_variable(variable_name):
     Returns:
      True if the varibale name is valid, false otherwise. 
     """
-    if not variable_name:
+    if not variable_name: # checks if empty
         return False
 
-    if keyword.iskeyword(variable_name):
+    if keyword.iskeyword(variable_name): # checks if its a Python Keyword
         return False
 
-    if variable_name[0].isdigit():
+    if variable_name[0].isdigit(): # checks if the first item is a digit
         return False
 
-    for char in variable_name:
-        if not char.isalnum() and char != "_":
-            return false
+    for char in variable_name: # iterates checking for characters
+        if not char.isalnum() and char != "_": # checks character for alphanumeric or an underscore
+            return False
 
-    return True
+    return True # proves okay for variable name
 
-is_variable = is_valid_variable("my_varibale")
+is_variable = is_valid_variable("my_varibale") # variable declaired which invokes the function call
 
+# the output is printed as follows
 if is_variable:
     print(f"This is valid variable name. \n")
 else:
