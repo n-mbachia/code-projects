@@ -1,0 +1,29 @@
+#!/usrs/bin/python3
+"""Call your function is_empty, it takes a parameter and it checks if it is empty or not"""
+
+def is_empty(parameter):
+  """Checks if the parameter is empty or not.
+
+  Args:
+    parameter: The parameter to check.
+
+  Returns:
+    True if the parameter is empty, False otherwise.
+  """
+
+  if parameter is None:
+    return True
+  elif type(parameter) == str:
+    return parameter == ""
+  elif type(parameter) == list:
+    return len(parameter) == 0
+  elif type(parameter) == tuple:
+    return len(parameter) == 0
+  elif type(parameter) == dict:
+    return len(parameter) == 0
+  elif hasattr(parameter, "__len__") and callable(parameter.__len__) and parameter.__len__ == 0:
+    return True
+  else:
+    return False
+
+user_input = input("You can type or just press enter you choice: \n")
