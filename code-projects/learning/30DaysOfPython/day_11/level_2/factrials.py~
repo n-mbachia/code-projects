@@ -1,0 +1,11 @@
+#!/usrs/bin/python3
+"""Call your function factorial, it takes a whole number as a parameter and it return a factorial of the number"""
+
+def factorial(num):
+    total = 1
+    for i in range(1, num + 1):
+        total = total * i
+    print(f"The factorial of the {num} is {total}")
+
+user_input = int(input("Enter any number between 1 and 9:\n"))
+factorial(user_input)
