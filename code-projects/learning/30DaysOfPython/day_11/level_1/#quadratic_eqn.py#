@@ -1,0 +1,26 @@
+#!/usrs/bin/python3
+
+"""Quadratic equation is calculated as follows: axÅ≤ + bx + c = 0. Write a function which calculates solution set of a quadratic equation, solve_quadratic_eqn."""
+
+def solve_quadratic_eqn(a, b, c):
+  """Calculates the solution set of a quadratic equation.
+
+  Args:
+    a: The coefficient of the x^2 term.
+    b: The coefficient of the x term.
+    c: The constant term.
+
+  Returns:
+    A tuple containing the two solutions to the quadratic equation, or None if
+    there are no real solutions.
+  """
+
+  discriminant = b**2 - 4 * a * c
+  if discriminant < 0:
+    return None
+  elif discriminant == 0:
+    return (-b / (2 * a),)
+  else:
+    return ((-b + discriminant**0.5) / (2 * a),
+            (-b - discriminant**0.5) / (2 * a))
+(solve_quadratic_eqn(1, 2, 3))
