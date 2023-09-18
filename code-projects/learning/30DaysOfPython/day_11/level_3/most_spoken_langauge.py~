@@ -2605,13 +2605,6 @@ def most_spoken_languages(countries_data):
     A list of the 20 most spoken languages in the world, in descending order by
     number of speakers.
   """
-  """
-  most_populated_countries = []
-  for country in countries_data:
-    if country["population"] not in most_populated_countries:
-      most_populated_countries.append({"name": country["name"], "population": country["population"]})
-
-  most_populated_countries.sort(key=lambda country: country["population"], reverse=True)"""
   most_spoken_languages = []
   for country in countries_data:
     for language in country["languages"]:
@@ -2622,4 +2615,18 @@ def most_spoken_languages(countries_data):
 
   return most_spoken_languages[:20]
 for language in  most_spoken_languages(countries_data):
-print(language)
+  print(language)
+
+
+def most_populated_countries(country_data):
+
+  most_populated_countries = []
+  for country in countries_data:
+    if country["population"] not in most_populated_countries:
+      most_populated_countries.append({"name": country["name"], "population": country["population"]})
+
+  most_populated_countries.sort(key=lambda country: country["population"], reverse=True)
+  return most_populated_countries[:20]
+
+for country in most_populated_countries(countries_data):
+  print(f"the most populated countries as as follows {country} \n")
