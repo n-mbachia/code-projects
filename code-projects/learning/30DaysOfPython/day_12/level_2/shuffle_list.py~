@@ -26,4 +26,4 @@ list1 = ["Kenyatta", "Moi", "Kibaki", "Uhuru", "Ruto"]
 
 random_list = shuffle_list(list1)
 
-print(f"The original list: {list1}. \n The shuffled list is: {random_list}")
+print(f"The original list: {list1}.\nThe shuffled list is: {random_list}")
