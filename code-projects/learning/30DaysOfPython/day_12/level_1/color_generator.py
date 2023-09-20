@@ -1,0 +1,17 @@
+#!/usr/bin/python
+"""Write a function named rgb_color_gen. It will generate rgb colors (3 values ranging from 0 to 255 each)."""
+
+import random
+
+def rgb_color_gen():
+    """ Generates a color using the random module"""
+    red = random.randint(0, 255)
+    green = random.randint(0, 255)
+    blue = random.randint(0, 255)
+
+    # Generate RGB color as a tuple
+    return (red, green, blue)
+
+colors = rgb_color_gen()
+
+print(f"The generated RGB colors are, {colors}")
