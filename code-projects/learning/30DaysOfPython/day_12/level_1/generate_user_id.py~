@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+"""Modify the previous task. Declare a function named user_id_gen_by_user. It doesn’t take any parameters but it takes two inputs using input(). One of the inputs is the number of characters and the second input is the number of IDs which are supposed to be generated"""
+
+import random
+
+def user_id_gen_by_user():
+    """Generate a list of user IDs based on user input for the number of characters and number of IDs"""
+
+# Promt user input
+    num_of_chars = int(input("Enter the number of characters for the user id: \n"))
+    num_of_user_ids = int(input("Enter the number of user IDs to be generated: \n"))
+
+    def generate_user_id(num_of_chars):
+        """generate a random user id with specified number of characters."""
+        user_id = ''
+        for i in range(num_of_chars):
+            random_number = random.randint(0, 9)
+            user_id += str(random_number)
+        return user_id
+
+    # Generate the user IDs with specified number of characters
+    user_ids = []
+    for i in range(num_of_user_ids):
+        user_id = generate_user_id(num_of_chars)
+        user_ids.append(user_id)
+    return user_ids
+
+# Generate user IDs based on user input
+user_ids = user_id_gen_by_user()
+
+print("The generated user IDs are")
+
+# Print the user IDs 
+for i, user_id in enumerate(user_ids):
+    print(f"{i + 1}. {user_id}")
+    
