@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+"""Write a function list_of_hexa_colors which returns any number of hexadecimal colors in an array (six hexadecimal numbers written after #. Hexadecimal numeral system is made out of 16 symbols, 0-9 and first 6 letters of the alphabet, a-f."""
+import random
+
+def list_of_hexa_colors(num_of_colors):
+    """Generates a lisy f random hexadecimal colors,
+    Args:
+    num_of_colors: the number of hexadicimal colors to generate. 
+    Returns:
+     A list of hexadecimal colors.
+     """
+    hexa_colors = []
+    for i in range(num_of_colors):
+        # generate a random hexadecimal color
+        hexa_color = '#' # Concatenates symbol to begining if string
+        for i in range(6):
+            hexa_num = random.randint(0, 15) # random number generated
+            hexa_color += hex(hexa_num)[2:] # converts generated number to hexadecimal digit
+        
+        # Add the hexadecimal color to the list
+        hexa_colors.append(hexa_color)
+
+    return hexa_colors
+
+# User input to determine the number of hexadecimal colors to be generated
+user_input = int(input("Enter the number of colors you would like to be generated: \n"))
+
+generate_colors = list_of_hexa_colors(user_input)
+
+print(f"the hexadecimal colors generated are as follows; \n {generate_colors}")
