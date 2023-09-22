@@ -1,0 +1,8 @@
+#1/usr/bin/python3
+"""Change the following into a lkst of concatenated string."""
+
+names = [[('Asabeneh', 'Yetayeh')], [('David', 'Smith')], [('Donald', 'Trump')], [('Bill', 'Gates')]]
+
+full_names = [f'{first_name} {last_name}' for sublist in names for first_name, last_name in sublist]
+
+print(full_names)
