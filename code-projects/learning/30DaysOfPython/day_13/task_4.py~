@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+
+"""Flatten the following list to a new list"""
+countries = [[('Finland', 'Helsinki')], [('Sweden', 'Stockholm')], [('Norway', 'Oslo')]]
+new_countries = [elements for row in countries for country in row]
+print(new_countries) 
