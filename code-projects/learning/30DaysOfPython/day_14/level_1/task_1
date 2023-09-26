@@ -1,0 +1,2 @@
+Explain the difference between map, filter, and reduce.
+they are all higher-order built in functions and they work with a parameter and iterable where map iterates over iterables while filter returns a boolean value for each special variable and reduce retusn a single value upon execution. 
