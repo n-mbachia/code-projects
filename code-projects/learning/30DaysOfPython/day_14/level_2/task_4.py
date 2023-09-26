@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+"""Use filter to filter out countries containing 'land'."""
+
+countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'Iceland']
+
+def filter_countries(countries):
+    """Filteres a list of countries to only include those contaning word land,
+
+    Args:
+     countries: A list of string country names,
+
+    Returns:
+    A list of string, representing only contries that contain the word land
+     """
+
+    filtered_countries = []
+    for country in countries:
+        if "land" in country.lower():
+            filtered_countries.append(country)
+    return filtered_countries
+
+filtered_countries = filter_countries(countries)
+
+print(filtered_countries)
+            
