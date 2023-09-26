@@ -1,0 +1,5 @@
+Explain the difference between higher order function, closure and decorator
+
+a higher-order function allows a function to be used as a parameter and a return value also 
+a closure allows a nested function to access the outer scope of the encolosing function. 
+a decorator is a design pattern that allows the user to add new functionality to an exiting object without modifying its structure. a decorator is initiated by having the @ symbol before the decorator name. 
