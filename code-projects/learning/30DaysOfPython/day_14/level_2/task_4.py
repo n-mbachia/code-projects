@@ -10,16 +10,22 @@ def filter_countries(countries):
      countries: A list of string country names,
 
     Returns:
-    A list of string, representing only contries that contain the word land
+     A list of string, representing only contries that contain the word land
      """
 
     filtered_countries = []
     for country in countries:
         if "land" in country.lower():
+            # return if True
             filtered_countries.append(country)
+        else:
+            # return if False
+            filtered_countries.append(None)
+    # return the list created after running code
     return filtered_countries
+# pass filter function to declaired variable
+filtered_countries = filter(None, filter_countries(countries))
 
-filtered_countries = filter_countries(countries)
+# outputs to console
+print(list(filtered_countries))
 
-print(filtered_countries)
-            
