@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+"""Use filter to filter out countries containing 'land'."""
+
+countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'Iceland']
+
+def filter_countries(countries):
+  """Filteres a list of countries to only include those contaning\
+Å†word land,Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Args:Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Å†countries: A list of string country names,Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Returns: Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†A list of string, representing only contries that contain the w\
+ord land Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
+Å†Å†Å†"""
+  filtered_countries = []
+  for country in countries:
+    if "land" in country.lower():
+      filtered_countries.append(country)
+  return filtered_countries
+
+filtered_countries = filter(filter_countries, countries)
+
+print(list(filtered_countries))
+          

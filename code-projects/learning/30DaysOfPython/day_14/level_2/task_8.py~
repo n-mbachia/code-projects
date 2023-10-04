@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+"""Chain two or more list iterators (eg. arr.map(callback).filter(callback).reduce(callback))"""
+
+import itertools
+
+lst_a = [a, b, c, d]
+lst_b = [e, f, g, h]
+
+# Chain the iterators for a and b
+chained_iterator = itertools.chain(lst_a, lst_b)
+
+# Iterate over the chained iterator
+for value in chained_iterator:
+    print(value)
