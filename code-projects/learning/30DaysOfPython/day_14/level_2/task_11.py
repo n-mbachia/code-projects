@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+"""Use reduce to concatenate all the countries and to produce this sentence: Estonia, Finland, Sweden, Denmark, Norway, and Iceland are north European countries"""
+def concatenate(a, b):
+    return a + ", " + b
+
+countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'Iceland']
+
+sentence = reduce(concatenate, countries) + " are north European countries"
+
+print(sentence)
+
