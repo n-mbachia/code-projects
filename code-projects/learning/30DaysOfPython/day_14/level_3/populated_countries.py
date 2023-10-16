@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+
+import countries_data
+
+# Sort countries by population in reverse order.
+most_populated_countries = sorted(countries_data.countries, key=lambda c: c["population"], reverse=True)
+
+# Print the ten most populated countries.
+print("Ten most populated countries:")
+for i in range(10):
+    country = most_populated_countries[i]
+    print(country["name"])

@@ -1,0 +1,21 @@
+#!/usrs/bin/python3
+
+import countries_data
+
+# Create a dictionary to store the number countries where each language is spoken
+
+language_counts = {}
+for country in countries_data.countries:
+    for language in country["languages"]:
+        if language in language_counts:
+            language_counts[language] += 1
+        else:
+            language_counts[language] = 1
+# Sort the langauge counts dictionary by value in reverse order. 
+sorted_language_counts = sorted(language_counts.items(), key=lambda x: x[1], reverse=True)
+
+# Print the ten most spoken languages by location. 
+print("Ten most spoken languages by location:")
+for i in range(10):
+    language, count = sorted_language_counts[i]
+    print(f"{language}: {count}")
