@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+
+"""Format the current date using this format: "%m/%d/%Y, %H:%M:%S")"""
+
+import datetime
+
+now = datetime.datetime.now()
+
+# Format current date using the strftime() method
+formatted_date = now.strftime("%m/%d/%Y. %H:%M:%S")
+
+print(formatted_date)
