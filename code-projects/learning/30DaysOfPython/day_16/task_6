@@ -1,0 +1,10 @@
+Date time module can be used for the following when programming;
+     1. Sheduling tasks, 
+     2. Calculating time difference,	
+     3. Converting between time zones,
+     4. Formatting dates and times,
+     5. Creating calenders,
+     6. Calculating holidays,
+     7. Time series analysis,
+     8. Getting timestamps of activities in an application,
+     9. Adding posts on a blog, among others. 
